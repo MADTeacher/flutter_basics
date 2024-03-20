@@ -58,14 +58,14 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  bool _isWarpNewPage = false;
+  bool _isWrapNewPage = false;
   
   // Метод для переключения значения _isWarpNewPage и обновления UI.
-  void warpNewPage() {
-    // _isWarpNewPage != _isWarpNewPage;
-    _isWarpNewPage = _isWarpNewPage ? false : true;
+  void wrapNewPage() {
+    // _isWrapNewPage != _isWrapNewPage;
+    _isWrapNewPage = _isWrapNewPage ? false : true;
     setState(() {});
-    debugPrint('isWarpNewPage: $_isWarpNewPage');
+    debugPrint('isWrapNewPage: $_isWrapNewPage');
   }
 
   @override
@@ -77,10 +77,10 @@ class _MainPageState extends State<MainPage> {
       ),
       body: Center(
           child: MyStatefulWidget(
-        isWrapped: _isWarpNewPage,
+        isWrapped: _isWrapNewPage,
       )),
       floatingActionButton: FloatingActionButton(
-        onPressed: warpNewPage,
+        onPressed: wrapNewPage,
         child: const Icon(Icons.toc),
       ),
     );
