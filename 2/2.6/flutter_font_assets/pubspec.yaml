@@ -1,0 +1,33 @@
+name: flutter_font_assets
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  fonts: # подключение шрифтов
+    - family: PTSerif # семейство подключаемого шрифта
+      fonts: # список подключаемых шрифтов и настройка их свойств
+        # путь к шрифту в директории проекта
+        - asset: fonts/PTSerif-Regular.ttf 
+        - asset: fonts/PTSerif-Italic.ttf
+        - asset: fonts/PTSerif-Bold.ttf
+        - asset: fonts/PTSerif-BoldItalic.ttf
+    - family: AmaticSC
+      fonts:
+        - asset: fonts/AmaticSC-Regular.ttf
+        - asset: fonts/AmaticSC-Bold.ttf
