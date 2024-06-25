@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+/// Пример использования эфемерного состояния 
+/// в нижней навигационной панели
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +22,7 @@ class MyHomepage extends StatefulWidget {
 }
 
 class _MyHomepageState extends State<MyHomepage> {
-  /// Текущий индекс навигационной панели
+  // Текущий индекс навигационной панели
   int _index = 0;
 
   @override
@@ -29,7 +31,8 @@ class _MyHomepageState extends State<MyHomepage> {
         bottomNavigationBar: BottomNavigationBar(
             currentIndex: _index,
             onTap: (newIndex) {
-              /// При клике на кнопку меняет текущий индекс
+              // При клике на кнопку меняет текущий индекс
+              // И меняется текущее состояние
               setState(() {
                 _index = newIndex;
               });
