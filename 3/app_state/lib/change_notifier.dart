@@ -21,13 +21,13 @@ class Counter with ChangeNotifier {
 }
 
 void main() {
-  runApp(CounterScreen(counter: Counter()));
+  runApp(MaterialApp(home: CounterScreen(counter: Counter())));
 }
 
 class CounterScreen extends StatelessWidget {
   final Counter counter;
-
   const CounterScreen({super.key, required this.counter});
+
 
   @override
   Widget build(BuildContext context) {
@@ -35,23 +35,9 @@ class CounterScreen extends StatelessWidget {
       body: Center(
           child: AnimatedBuilder(
               animation: counter,
-              builder: (context, child) {
-                return Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      const Text(
-                        '',
-                      ),
-                      Text(
-                        '${counter.count}',
-                      )
-                    ]);
-              })),
+              builder: (context, child) => Text('${counter.count}'))),
       floatingActionButton: FloatingActionButton(
-        onPressed: counter.increment,
-        tooltip: '',
-        child: const Icon(Icons.add),
-      ),
+          onPressed: counter.increment, child: const Icon(Icons.add)),
     );
   }
 }
