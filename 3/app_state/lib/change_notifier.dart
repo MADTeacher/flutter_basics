@@ -21,13 +21,12 @@ class Counter with ChangeNotifier {
 }
 
 void main() {
-  runApp(MaterialApp(home: CounterScreen(counter: Counter())));
+  runApp(MaterialApp(home: CounterScreenWithBuilder(counter: Counter())));
 }
 
 class CounterScreen extends StatelessWidget {
   final Counter counter;
   const CounterScreen({super.key, required this.counter});
-
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +34,23 @@ class CounterScreen extends StatelessWidget {
       body: Center(
           child: AnimatedBuilder(
               animation: counter,
+              builder: (context, child) => Text('${counter.count}'))),
+      floatingActionButton: FloatingActionButton(
+          onPressed: counter.increment, child: const Icon(Icons.add)),
+    );
+  }
+}
+
+class CounterScreenWithBuilder extends StatelessWidget {
+  final Counter counter;
+  const CounterScreenWithBuilder({super.key, required this.counter});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+          child: ListenableBuilder(
+              listenable: counter,
               builder: (context, child) => Text('${counter.count}'))),
       floatingActionButton: FloatingActionButton(
           onPressed: counter.increment, child: const Icon(Icons.add)),
