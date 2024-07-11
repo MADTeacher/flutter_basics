@@ -1,4 +1,4 @@
-import 'package:app_state/bloc.dart';
+import 'package:app_state/bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MaterialApp(home: _CounterScreen()));
