@@ -18,9 +18,4 @@ class Controller {
   void decrement() {
     _model.decrement();
   }
-
-  // Метод для сброса значения счетчика
-  void reset() {
-    _model.reset();
-  }
 }
