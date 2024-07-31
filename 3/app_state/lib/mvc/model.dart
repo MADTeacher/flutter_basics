@@ -14,9 +14,4 @@ class Model {
   void decrement() {
     _counter--;
   }
-
-  // Метод для сброса значения счетчика
-  void reset() {
-    _counter = 0;
-  }
 }
