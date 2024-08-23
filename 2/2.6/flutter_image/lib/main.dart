@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  var myList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  for (var _ in myList) {
-    print(_);
-  }
-  // runApp(const MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -35,6 +31,7 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+// перечисление для доступа к изображениям
 enum MyImages {
   kandinsky1(url: 'images/kandinsky-1.png'),
   kandinsky2(url: 'images/kandinsky-2.png');
@@ -58,6 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
               onPressed: () {
                 setState(() {
+                  // меняем изображение 
                   image = image == MyImages.kandinsky1
                       ? MyImages.kandinsky2
                       : MyImages.kandinsky1;
@@ -72,8 +70,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 500,
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
+                  // добавляем изображение в виджет
                   child: Image.asset(
                     image.url,
+                    // Указываем, как вписать изображение в отведенное 
+                    // при пространство. BoxFit.cover - как можно
+                    // меньше, но при этом охватывает всю целевую область.
                     fit: BoxFit.cover,
                   ),
                 ),
