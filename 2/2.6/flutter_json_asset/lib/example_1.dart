@@ -28,7 +28,6 @@ class MyApp extends StatelessWidget {
               useMaterial3: true,
             ),
             home: MyHomePage(
-              title: 'Flutter Demo Home Page',
               iconSettings: snapshot.data!,
             ),
           );
@@ -42,13 +41,11 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   final IconSettings iconSettings;
+  
   const MyHomePage({
     super.key,
-    required this.title,
     required this.iconSettings,
   });
-
-  final String title;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();

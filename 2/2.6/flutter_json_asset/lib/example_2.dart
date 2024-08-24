@@ -11,13 +11,12 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<IconSettings>(
       future: _loadIconSettings(context),
       builder: (context, snapshot) {
-        if (snapshot.hasData) {
+        if (snapshot.hasData) { // Если данные загружены
           return MaterialApp(
             title: 'Flutter Demo',
             theme: ThemeData(
@@ -27,11 +26,10 @@ class MyApp extends StatelessWidget {
               useMaterial3: true,
             ),
             home: MyHomePage(
-              title: 'Flutter Demo Home Page',
               iconSettings: snapshot.data!,
             ),
           );
-        } else {
+        } else { // Если данные не загружены
           return const CircularProgressIndicator();
         }
       },
@@ -41,13 +39,11 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   final IconSettings iconSettings;
+
   const MyHomePage({
     super.key,
-    required this.title,
     required this.iconSettings,
   });
-
-  final String title;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();

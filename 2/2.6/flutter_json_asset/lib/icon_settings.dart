@@ -1,4 +1,3 @@
-
 final class IconSettings {
   final int size;
   final int colorIndex;
