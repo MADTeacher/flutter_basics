@@ -14,33 +14,7 @@ Future<Response> onRequest(RequestContext context) async {
     return _post(context);
   }
 
-  if (method == HttpMethod.delete) {
-    return _delete(context);
-  }
-
-  if (method == HttpMethod.put) {
-    return _put(context, userRepository);
-  }
-
   return _get(context, userRepository);
-}
-
-Future<Response> _put(
-  RequestContext context,
-  UsersRepository userRepository,
-) async {
-  final request = context.request;
-  final body = await request.body();
-  final reqData = jsonDecode(body);
-  final user = User.fromJson(reqData as Map<String, dynamic>);
-
-  final isUserExist = await userRepository.isUserExits(user.id);
-
-  return Response.json(statusCode: isUserExist ? 200 : 201, body: user);
-}
-
-Future<Response> _delete(RequestContext context) async {
-  return Response.json(body: {'success': true});
 }
 
 Future<Response> _post(RequestContext context) async {

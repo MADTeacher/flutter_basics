@@ -42,8 +42,8 @@ class User {
       lastname: map['lastname'] as String,
       email: map['email'] as String,
       age: map['age'] as int,
-      height: map['height'] as double,
-      weight: map['weight'] as double,
+      height: (map['height'] as num).toDouble(),
+      weight: (map['weight'] as num).toDouble(),
     );
   }
 }

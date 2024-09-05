@@ -12,13 +12,18 @@ class UsersRepository {
     return _mockUsers[userIndex];
   }
 
-  Future<bool> isUserExits(int id) async {
+  Future<bool> isUserExist(int id) async {
     final userIndex = _mockUsers.indexWhere((e) => e.id == id);
     return userIndex >= 0;
   }
 
   Future<User> createUser(User user) async {
     return user;
+  }
+
+  Future<void> delete(int id) async {
+    final userExist = await isUserExist(id);
+    if (!userExist) throw NotFoundException();
   }
 
   static const _mockUsers = <User>[
