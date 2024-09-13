@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
+      // Объявляем Scaffold на данном уровне
       home: const Scaffold(body: MyHomePage()),
     );
   }
@@ -66,26 +67,24 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-              child: const Text('First SnackBar'),
-              onPressed: () {
-                showFirstSnackBar(context);
-              },
-            ),
-            const SizedBox(height: 50),
-            ElevatedButton(
-              child: const Text('Second SnackBar'),
-              onPressed: () {
-                showSecondSnackBar(context);
-              },
-            ),
-          ],
-        ),
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          ElevatedButton(
+            child: const Text('First SnackBar'),
+            onPressed: () {
+              showFirstSnackBar(context);
+            },
+          ),
+          const SizedBox(height: 50),
+          ElevatedButton(
+            child: const Text('Second SnackBar'),
+            onPressed: () {
+              showSecondSnackBar(context);
+            },
+          ),
+        ],
       ),
     );
   }
