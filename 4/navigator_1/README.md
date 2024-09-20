@@ -1,4 +1,4 @@
-# examle_navigator_1
+# navigator_1
 
 A new Flutter project.
 
