@@ -10,6 +10,7 @@ dependencies:
   backend_repository:
     path: packages/backend_repository
   dart_frog: ^1.1.0
+  dart_frog_web_socket: ^1.0.0
 
 dev_dependencies:
   mocktail: ^1.0.3

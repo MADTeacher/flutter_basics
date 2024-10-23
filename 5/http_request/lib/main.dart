@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _fetchUsersList() async {
-    final url = Uri.parse('https://jsonplaceholder.typicode.com/users/1');
+    final url = Uri.parse('http://localhost:8080/users/1');
     final response = await http.get(url);
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body) as Map<String, dynamic>;
