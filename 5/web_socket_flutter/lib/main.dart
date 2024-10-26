@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:nativewrappers/_internal/vm/lib/ffi_allocation_patch.dart';
 
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -114,6 +113,7 @@ class ServerMessages extends StatelessWidget {
 
   final WebSocketChannel channel;
   final List<String> serverMessages;
+  // callback-функция для оповещения верхнего уровня о новом сообщении
   final Function(String message) onNewMessage;
 
   @override
@@ -132,7 +132,7 @@ class ServerMessages extends StatelessWidget {
               stream: channel.stream,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  onNewMessage.call(snapshot.data.toString());
+                  onNewMessage(snapshot.data.toString());
                 }
                 return ListView.builder(
                   itemCount: serverMessages.length,
