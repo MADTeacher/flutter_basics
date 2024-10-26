@@ -25,6 +25,9 @@ class _ChatScreenState extends State<ChatScreen> {
   );
 
   StreamSubscription<dynamic>? _subscription;
+  final _controller = TextEditingController();
+  final _clientMessages = <String>[];
+  final _serverMessages = <String>[];
 
   @override
   void initState() {
@@ -34,10 +37,6 @@ class _ChatScreenState extends State<ChatScreen> {
     });
     super.initState();
   }
-
-  final _controller = TextEditingController();
-  final _clientMessages = <String>[];
-  final _serverMessages = <String>[];
 
   void _sendMessage() {
     if (_controller.text.isNotEmpty) {
