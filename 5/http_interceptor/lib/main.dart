@@ -74,7 +74,7 @@ class HttpInterceptorClient extends http.BaseClient {
   }
 }
 
-abstract class HttpInterceptor {
+abstract interface class HttpInterceptor {
   /// Called when the request is about to be sent.
   void onRequest(http.BaseRequest request);
 
