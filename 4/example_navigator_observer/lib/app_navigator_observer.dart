@@ -1,5 +1,5 @@
+import 'package:example_navigator_observer/screens/login_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:navigator_onserver/screens/login_screen.dart';
 
 // Флаг авторизации (для примера)
 bool _isUserAuthenticated = false;
