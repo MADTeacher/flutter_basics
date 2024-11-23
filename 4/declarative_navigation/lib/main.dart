@@ -11,15 +11,12 @@ class _MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Route
     // Добавляем условие:
     // если [isAuthenticated] == true, то отображается экран _HomeScreen
     // если [isAuthenticated] == false, то отображается экран _AuthScreen
     // Таким образом, приложение будет отображать декларативно экраны в зависимости
     // от состояния [isAuthenticated].
-    return MaterialApp.router(
-        routeInformationParser: RouteObserver(),
-        routeInformationProvider: ,
+    return MaterialApp(
         home: _isAuthenticated ? _HomeScreen() : const _AuthScreen());
   }
 }
