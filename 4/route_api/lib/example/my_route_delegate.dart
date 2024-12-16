@@ -13,7 +13,7 @@ class MyRouterDelegate extends RouterDelegate<String> with ChangeNotifier {
   @override
   String? get currentConfiguration => _currentPath;
 
-  /// Спиксок страниц
+  /// Список страниц
   List<Page> pages = [];
 
   @override
@@ -27,28 +27,33 @@ class MyRouterDelegate extends RouterDelegate<String> with ChangeNotifier {
         // Обновляем состояние
         if (pages.isEmpty) {
           setNewRoutePath('/');
-          notifyListeners();
         }
+        notifyListeners();
       },
     );
   }
 
   @override
   Future<void> setNewRoutePath(String configuration) async {
+    // Создаем новую страницу
     Page? newPage = switch (configuration) {
       '/home' => const MaterialPage(child: HomeScreen()),
       '/profile' => const MaterialPage(child: ProfileScreen()),
       '/error' => const MaterialPage(child: ErrorScreen()),
       _ => null,
     };
+    // Обновляем состояние
     _currentPath = configuration;
     if (configuration == '/') {
+      // Если текущая страница - корневая, то очищаем список
       pages.clear();
     }
     if (newPage != null) {
+      // конфигурируем новую страницу
+      // добавляем новую страницу в список
       pages.add(newPage);
     }
-
+    // Обновляем состояние
     notifyListeners();
   }
 
