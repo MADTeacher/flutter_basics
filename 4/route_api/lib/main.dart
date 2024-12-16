@@ -16,7 +16,6 @@ class MyApp extends StatelessWidget {
       routerDelegate: MyRouterDelegate(),
       routeInformationParser: MyRouteInformationParser(),
       routeInformationProvider: myRouteInformationProvider,
-      backButtonDispatcher: RootBackButtonDispatcher(),
     );
   }
 }
