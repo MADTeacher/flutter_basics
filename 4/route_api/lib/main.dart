@@ -4,6 +4,7 @@ import 'package:route_api/example/my_route_information_provider.dart';
 import 'package:route_api/example/my_route_delegate.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
