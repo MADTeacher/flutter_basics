@@ -16,6 +16,8 @@ class RootScreen extends StatelessWidget {
           children: [
             ElevatedButton(
                 onPressed: () {
+                  // Получаем из контекста MyRouterDelegate
+                  // и вызываем setNewRoutePath с новой конфигурацией
                   (Router.of(context).routerDelegate as MyRouterDelegate)
                       .setNewRoutePath('/home');
                 },
