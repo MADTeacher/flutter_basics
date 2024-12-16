@@ -4,7 +4,8 @@ import 'package:route_api/screen/home_screen.dart';
 import 'package:route_api/screen/profile_screen.dart';
 import 'package:route_api/screen/root_screen.dart';
 
-class MyRouterDelegate extends RouterDelegate<String> with ChangeNotifier {
+class MyRouterDelegate extends RouterDelegate<String>
+    with ChangeNotifier, PopNavigatorRouterDelegateMixin {
   // Текущее состояние маршрута
   String _currentPath = '/';
 
@@ -17,15 +18,12 @@ class MyRouterDelegate extends RouterDelegate<String> with ChangeNotifier {
   @override
   Widget build(BuildContext context) {
     return Navigator(
+      key: navigatorKey,
       pages: [const MaterialPage(child: RootScreen()), ...pages],
-      onPopPage: (route, result) {
-        if (!route.didPop(result)) {
-          return false;
-        }
-        pages.removeLast();
+      onDidRemovePage: (page) {
+        pages.remove(page);
         _currentPath = '/';
         notifyListeners();
-        return true;
       },
     );
   }
@@ -50,7 +48,6 @@ class MyRouterDelegate extends RouterDelegate<String> with ChangeNotifier {
   }
 
   @override
-  Future<bool> popRoute() async {
-    return true;
-  }
+  final GlobalKey<NavigatorState>? navigatorKey =
+      GlobalKey(debugLabel: "Root navigator");
 }
