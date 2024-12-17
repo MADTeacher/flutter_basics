@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:route_api/example/my_route_config.dart';
 import 'package:route_api/example/my_route_information_parser.dart';
 import 'package:route_api/example/my_route_information_provider.dart';
 import 'package:route_api/example/my_route_delegate.dart';
+
+final RouterConfig<Object> myRouterConfig = MyRouterConfig<Object>(
+  routerDelegate: MyRouterDelegate(),
+  routeInformationParser: MyRouteInformationParser(),
+  backButtonDispatcher: RootBackButtonDispatcher(),
+  routeInformationProvider: myRouteInformationProvider,
+);
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,10 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      routerDelegate: MyRouterDelegate(),
-      routeInformationParser: MyRouteInformationParser(),
-      routeInformationProvider: myRouteInformationProvider,
-      backButtonDispatcher: RootBackButtonDispatcher(),
+      routerConfig: myRouterConfig,
     );
   }
 }
