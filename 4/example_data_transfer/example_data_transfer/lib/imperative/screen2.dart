@@ -6,11 +6,12 @@ class Screen2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as TestData;
+    // Получаем аргументы из RouteSettings
+    final args = ModalRoute.of(context)?.settings.arguments;
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: Text(args.data),
+        child: Text(args == null ? 'No data' : (args as TestData).data),
       ),
     );
   }

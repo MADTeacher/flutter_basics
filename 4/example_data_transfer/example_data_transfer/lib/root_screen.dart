@@ -22,6 +22,7 @@ class RootScreen extends StatelessWidget {
                     builder: (context) {
                       return const Screen1();
                     },
+                    // Передаем строку в аргументах
                     settings: const RouteSettings(
                         arguments: 'Переданные данные из RootScreen'),
                   ));

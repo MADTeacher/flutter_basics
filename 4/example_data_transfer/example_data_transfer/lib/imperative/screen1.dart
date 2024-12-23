@@ -5,11 +5,12 @@ class Screen1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as String;
+    // Получаем аргументы из RouteSettings
+    final args = ModalRoute.of(context)?.settings.arguments ?? 'No data';
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: Text(args),
+        child: Text(args.toString()),
       ),
     );
   }

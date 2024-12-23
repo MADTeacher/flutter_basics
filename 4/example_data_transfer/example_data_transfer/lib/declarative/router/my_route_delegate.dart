@@ -36,12 +36,15 @@ class MyRouterDelegate extends RouterDelegate<String>
 
   Future<void> navigateTo(String url, {String? args}) async {
     Page? newPage;
+    // Получаем путь до первого символа ":"
     final path = url.split('/:').first;
 
     if (path == '/home') {
       newPage = MaterialPage(child: HomeScreen(date: args));
     } else if (path == '/profile') {
+      // Получаем путь до первого символа ":" и получаем id
       final id = url.split('/:').last;
+      // Передаем id в ProfileScreen
       newPage = MaterialPage(child: ProfileScreen(id: id));
     }
 
