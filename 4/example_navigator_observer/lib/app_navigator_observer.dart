@@ -10,7 +10,9 @@ class AppNavigatorObserver extends NavigatorObserver {
     super.didPush(route, previousRoute);
     // Проверяем, если пользователь пытается перейти на профиль
     if (route.settings.name == '/profile' && !_isUserAuthenticated) {
-      print('Доступ запрещен, переход на экран аутентификации');
+      debugPrint(
+        'Доступ запрещен, переход на экран аутентификации',
+      );
 
       // Отменяем переход
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -25,21 +27,24 @@ class AppNavigatorObserver extends NavigatorObserver {
     }
 
     // Отправить имя маршрута в систему аналитики
-    print('Новый маршрут добавлен в стек: ${route.settings.name}');
+    final rStr = route.settings.name;
+    debugPrint('Маршрут добавлен в стек: $rStr');
   }
 
   @override
   void didPop(Route route, Route? previousRoute) {
     super.didPop(route, previousRoute);
     // Отправить имя маршрута в систему аналитики
-    print('Новый маршрут удален из стека: ${route.settings.name}');
+    final rStr = route.settings.name;
+    debugPrint('Маршрут удален из стека: $rStr');
   }
 
   @override
   void didReplace({Route? newRoute, Route? oldRoute}) {
     super.didReplace(newRoute: newRoute, oldRoute: oldRoute);
     // Отправить имя нового маршрута в систему аналитики
-    print(
-        'Маршрут заменен: ${oldRoute?.settings.name} на ${newRoute?.settings.name}');
+    final oldStr = oldRoute?.settings.name;
+    final newStr = newRoute?.settings.name;
+    debugPrint('Маршрут заменен: $oldStr на $newStr');
   }
 }

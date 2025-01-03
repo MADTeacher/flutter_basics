@@ -7,13 +7,18 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('ProfileScreen')),
+      appBar: AppBar(
+        title: const Text('ProfileScreen'),
+      ),
       body: Center(
         child: ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed(AppRoutesName.home);
-            },
-            child: const Text('Переход на HomeScreen')),
+          onPressed: () {
+            Navigator.of(context).pushNamed(
+              AppRoutesName.home,
+            );
+          },
+          child: const Text('Переход на HomeScreen'),
+        ),
       ),
     );
   }

@@ -20,13 +20,17 @@ void main() {
       builder: (context) => const DefaultScreen(),
     ),
     onGenerateRoute: (settings) {
-      /// Добавили проверку наличия аргументов при переходе
+      // Добавили проверку наличия аргументов при переходе
       if (settings.name == '/test') {
         final args = (settings.arguments as Map?)?['test'];
         if (args == true) {
-          return MaterialPageRoute(builder: (context) => const HomeScreen());
+          return MaterialPageRoute(
+            builder: (context) => const HomeScreen(),
+          );
         } else {
-          return MaterialPageRoute(builder: (context) => const TestScreen());
+          return MaterialPageRoute(
+            builder: (context) => const TestScreen(),
+          );
         }
       }
 
@@ -34,11 +38,25 @@ void main() {
       // не прописан /test_route.
       // Но мы можем в onGenerateRoute, проверить, и построить нужный
       // маршрут.
-      if (settings.name == '/test') {
-        return MaterialPageRoute(builder: (context) => const TestScreen());
-      }
+      // if (settings.name == '/test') {
+      //   return MaterialPageRoute(
+      //     builder: (context) => const TestScreen(),
+      //   );
+      // }
 
       return null;
     },
   ));
 }
+
+// void main() {
+//   runApp(MaterialApp(
+//     initialRoute: '/',
+//     routes: {
+//       '/': (context) => const MainScreen(),
+//       '/profile': (context) => const ProfileScreen(),
+//       '/login': (context) => const LoginScreen(),
+//       '/home': (context) => const HomeScreen(),
+//     },
+//   ));
+// }

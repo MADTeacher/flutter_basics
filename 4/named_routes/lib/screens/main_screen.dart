@@ -13,30 +13,45 @@ class MainScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(AppRoutesName.profile);
-                },
-                child: const Text('Переход на ProfileScreen')),
+              onPressed: () {
+                Navigator.of(context).pushNamed(
+                  AppRoutesName.profile,
+                );
+              },
+              child: const Text(
+                'Переход на ProfileScreen',
+              ),
+            ),
             const SizedBox(height: 16),
             ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/unknown');
-                },
-                child: const Text('Переход на неизвестный маршрут')),
+              onPressed: () {
+                Navigator.of(context).pushNamed('/unknown');
+              },
+              child: const Text(
+                'Переход на неизвестный маршрут',
+              ),
+            ),
             const SizedBox(height: 16),
             ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/test');
-                },
-                child: const Text('Переход на тестовый маршрут')),
+              onPressed: () {
+                Navigator.of(context).pushNamed('/test');
+              },
+              child: const Text('Переход на тестовый маршрут'),
+            ),
             const SizedBox(height: 16),
             ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context)
-                      .pushNamed('/test', arguments: {'test': true});
-                },
-                child:
-                    const Text('Переход на тестовый маршрут, с аргументами')),
+              onPressed: () {
+                Navigator.of(context).pushNamed(
+                  '/test',
+                  arguments: {
+                    'test': true,
+                  },
+                );
+              },
+              child: const Text(
+                'Переход на тестовый маршрут, с аргументами',
+              ),
+            ),
           ],
         ),
       ),
