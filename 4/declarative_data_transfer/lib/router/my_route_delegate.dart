@@ -58,6 +58,7 @@ class MyRouterDelegate extends RouterDelegate<String>
     setNewRoutePath(path);
   }
 
+  // Меняем реализацию метода на то, что приведено ниже
   @override
   Future<void> setNewRoutePath(String configuration) async {
     // Обновляем состояние

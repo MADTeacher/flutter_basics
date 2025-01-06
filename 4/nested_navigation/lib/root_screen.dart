@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nested_navigation/screens.dart';
+import 'screens.dart';
 
 /// "Корневой" виджет, который содержит BottomNavigationBar
 class RootScreen extends StatefulWidget {
@@ -25,7 +25,9 @@ class _RootScreenState extends State<RootScreen> {
     // Если нажали на уже активную вкладку —
     // сбрасываем стек этой вкладки на первый экран (popUntil isFirst).
     if (index == _selectedIndex) {
-      _navigatorKeys[index].currentState?.popUntil((route) => route.isFirst);
+      _navigatorKeys[index].currentState?.popUntil(
+            (route) => route.isFirst,
+          );
     } else {
       setState(() {
         _selectedIndex = index;
@@ -66,7 +68,11 @@ class _RootScreenState extends State<RootScreen> {
 }
 
 class _StackNavigation extends StatelessWidget {
-  const _StackNavigation(this.selectedIndex, this.index, this.navigatorKeys);
+  const _StackNavigation(
+    this.selectedIndex,
+    this.index,
+    this.navigatorKeys,
+  );
 
   final int selectedIndex;
   final int index;
@@ -83,9 +89,15 @@ class _StackNavigation extends StatelessWidget {
         onGenerateRoute: (RouteSettings settings) {
           // Определяем, какой стартовый экран показывать в каждой вкладке
           return switch (index) {
-            1 => MaterialPageRoute(builder: (context) => const SearchScreen()),
-            2 => MaterialPageRoute(builder: (context) => const ProfileScreen()),
-            _ => MaterialPageRoute(builder: (context) => const HomeScreen()),
+            1 => MaterialPageRoute(
+                builder: (context) => const SearchScreen(),
+              ),
+            2 => MaterialPageRoute(
+                builder: (context) => const ProfileScreen(),
+              ),
+            _ => MaterialPageRoute(
+                builder: (context) => const HomeScreen(),
+              ),
           };
         },
       ),

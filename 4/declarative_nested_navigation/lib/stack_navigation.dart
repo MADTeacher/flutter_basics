@@ -30,15 +30,13 @@ class StackNavigation extends StatelessWidget {
         // Список страниц
         pages: List.of(pages),
         // Метод, который вызывается при нажатии "назад"
-        onPopPage: (route, result) {
-          if (!route.didPop(result)) {
-            return false;
+        onDidRemovePage: (Page<Object?> removedPage) {
+          // Если удалённая страница совпадает с верхней, обрабатываем удаление
+          if (pages.isNotEmpty && pages.last == removedPage) {
+            pages.removeLast();
+            // Сбрасываем стек
+            onResetStack();
           }
-          // Удаляем верхнюю страницу из списка
-          pages.removeLast();
-          // Сбрасываем стек
-          onResetStack();
-          return true;
         },
       ),
     );

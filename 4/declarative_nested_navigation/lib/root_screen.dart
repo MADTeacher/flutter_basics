@@ -1,5 +1,6 @@
-import 'package:declarative_nested_navigation/stack_navigation.dart';
 import 'package:flutter/material.dart';
+
+import 'stack_navigation.dart';
 
 part 'screens.dart';
 
@@ -36,7 +37,8 @@ class _RootScreenState extends State<RootScreen> {
     ),
   ];
 
-  // Метод для сброса стека (например, при повторном клике на иконку вкладки)
+  // Метод для сброса стека (например, при повторном клике
+  // на иконку вкладки)
   void _resetStack(int index) {
     setState(() {
       switch (index) {
@@ -104,9 +106,18 @@ class _RootScreenState extends State<RootScreen> {
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
         ],
       ),
     );
