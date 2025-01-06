@@ -25,7 +25,9 @@ class HomeScreen extends StatelessWidget {
             // Обращаемся к глобальному ключу, далее к его текущему
             // состоянию и вызываем нам знакомый метод push()
             navigatorKey.currentState?.push(
-              MaterialPageRoute(builder: (context) => const SecondScreen()),
+              MaterialPageRoute(
+                builder: (context) => const SecondScreen(),
+              ),
             );
           },
           child: const Text('Перейти на SecondScreen'),

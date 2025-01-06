@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-/// Кастомный класс для работы с маршрутами.
+/// Пользовательский класс для работы с маршрутами.
 /// Наследуется от [RouteInformationParser]
 class MyRouteInformationParser extends RouteInformationParser<String> {
   @override

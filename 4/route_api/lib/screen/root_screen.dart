@@ -15,22 +15,24 @@ class RootScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             ElevatedButton(
-                onPressed: () {
-                  // Получаем из контекста MyRouterDelegate
-                  // и вызываем setNewRoutePath с новой конфигурацией
-                  (Router.of(context).routerDelegate as MyRouterDelegate)
-                      .setNewRoutePath('/home');
-                },
-                child: const Text('Перейти на HomeScreen')),
+              onPressed: () {
+                // Получаем из контекста MyRouterDelegate
+                // и вызываем setNewRoutePath с новой конфигурацией
+                (Router.of(context).routerDelegate as MyRouterDelegate)
+                    .setNewRoutePath('/home');
+              },
+              child: const Text('Перейти на HomeScreen'),
+            ),
             const SizedBox(
               height: 16,
             ),
             ElevatedButton(
-                onPressed: () {
-                  (Router.of(context).routerDelegate as MyRouterDelegate)
-                      .setNewRoutePath('/profile');
-                },
-                child: const Text('Перейти на ProfileScreen')),
+              onPressed: () {
+                (Router.of(context).routerDelegate as MyRouterDelegate)
+                    .setNewRoutePath('/profile');
+              },
+              child: const Text('Перейти на ProfileScreen'),
+            ),
           ],
         ),
       ),
