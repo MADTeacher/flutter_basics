@@ -6,7 +6,7 @@ class Calculator {
 
   String multiply(int a, int b) => (a * b).toString();
 
-  /// Если b == 0, вернём double.nan для упрощения.
+  /// Если b == 0, вернём ошибку.
   String divide(int a, int b) {
     if (b == 0) {
       throw ArgumentError('На ноль делить нельзя');
