@@ -1,0 +1,27 @@
+{
+    "folders": [
+        "data",
+        "data/repository",
+        "domain",
+        "domain/state",
+        "domain/entity",
+        "domain/repository",
+        "presentation",
+        "presentation/components",
+        "presentation/screens"
+    ],
+    "files": [
+        {
+            "path": "data/repository/{file_name}_repository.dart",
+            "template": "import '../../domain/repository/i_{file_name}_repository.dart';\n\n/// {@template {class_name}Repository}\n///\n/// {@endtemplate}\nfinal class {class_name}Repository implements I{class_name}Repository {}"
+        },
+        {
+            "path": "data/repository/{file_name}_mock_repository.dart",
+            "template": "import '../../domain/repository/i_{file_name}_repository.dart';\n\n/// {@template {class_name}MockRepository}\n///\n/// {@endtemplate}\nfinal class {class_name}MockRepository implements I{class_name}Repository {}"
+        },
+        {
+            "path": "domain/repository/i_{file_name}_repository.dart",
+            "template": "/// {@template I{class_name}Repository}\n/// \n/// {@endtemplate}\nabstract interface class I{class_name}Repository {}"
+        }
+    ]
+}
