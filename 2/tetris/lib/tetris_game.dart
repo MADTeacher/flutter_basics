@@ -33,8 +33,8 @@ class _TetrisGameState extends State<TetrisGame> {
       autofocus: true,
       onKeyEvent: (FocusNode node, KeyEvent event) {
         // Обработка нажатий клавиш
-        // Если событие - нажатие клавиши
-        if (event is KeyDownEvent) {
+        // Обрабатываем как нажатие, так и удержание клавиши
+        if (event is KeyDownEvent || event is KeyRepeatEvent) {
           game.board.keyboardEventHandler(event.logicalKey.keyId);
           setState(() {});
           return KeyEventResult.handled;
@@ -61,7 +61,6 @@ class _TetrisGameState extends State<TetrisGame> {
       ),
     );
   }
-
 }
 
 // Класс отрисовки игрового поля
@@ -76,8 +75,8 @@ class _GamePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final paint = Paint();
 
-    for (int i = 0; i < board.length; i++) {
-      for (int j = 0; j < board[i].length; j++) {
+    for (int i = 0; i < board.length - 1; i++) {
+      for (int j = 0; j < board[i].length - 1; j++) {
         Rect rect =
             Rect.fromLTWH(j * blockSize, i * blockSize, blockSize, blockSize);
         switch (board[i][j]) {
