@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tetris/gme_scores.dart';
 import 'package:tetris/src/board.dart';
 import 'package:tetris/src/game.dart';
 
@@ -15,42 +16,11 @@ class TetrisGame extends StatefulWidget {
 
 class _TetrisGameState extends State<TetrisGame> {
   late Game game;
-  // Метод для отображения диалогового окна при завершении игры
-  // Принимает параметр scores в виде строки, содержащий набранные очки
-  void _showGameOverDialog(String scores) {
-    // Проверяем, что виджет все еще находится в дереве виджетов
-    // Если виджет удален, прерываем выполнение метода
-    if (!mounted) return;
-
-    // Планируем показ диалога на следующий кадр отрисовки
-    // Это гарантирует, что диалог появится после полной инициализации виджета
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Показываем диалоговое окно
-      showDialog(
-        // Передаем контекст для правильного позиционирования диалога
-        context: context,
-        // Запрещаем закрытие диалога при клике вне его области
-        barrierDismissible: false,
-        // Функция построения содержимого диалога
-        builder: (BuildContext context) {
-          // Возвращаем виджет AlertDialog с информацией об окончании игры
-          return AlertDialog(
-            // Заголовок диалога
-            title: const Text('Game Over'),
-            // Текст с количеством набранных очков
-            content: Text('Your score: $scores'),
-            // Список кнопок действий (пока пустой)
-            actions: const [],
-          );
-        },
-      );
-    });
-  }
 
   @override
   void initState() {
     super.initState();
-    game = Game(onGameOver: _showGameOverDialog);
+    game = Game();
     game.start();
   }
 
@@ -62,6 +32,16 @@ class _TetrisGameState extends State<TetrisGame> {
       listenable: game,
       // Перестраиваем виджет при изменении состояния игры
       builder: (context, _) {
+        if (game.isGameOver) {
+          return Center(
+            child: GameScores(
+              score: game.score,
+              onRestart: () {
+                game.restart();
+              },
+            ),
+          );
+        }
         return Focus(
           autofocus: true,
           onKeyEvent: (FocusNode node, KeyEvent event) {

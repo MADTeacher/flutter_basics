@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
@@ -15,10 +14,7 @@ final class Game extends ChangeNotifier {
   bool _isGameOver = false;
   int score = 0;
 
-  // Обратный вызов при окончании игры
-  final Function(String scores) onGameOver;
-
-  Game({required this.onGameOver}) {
+  Game() {
     currentBlock = getNewRandomBlock();
     nextBlock = getNewRandomBlock();
 
@@ -61,7 +57,19 @@ final class Game extends ChangeNotifier {
       nextStep();
       await Future.delayed(const Duration(milliseconds: 500));
     }
-    onGameOver(score.toString());
+  }
+
+  Future<void> restart() async {
+    _isGameOver = false;
+    score = 0;
+    board = Board(
+      currentBlock: currentBlock,
+      newBlockFunc: newBlock,
+      updateScore: updateScore,
+      updateBlock: updateBlock,
+      gameOver: gameOver,
+    );
+    start();
   }
 
   // Метод вывода текущего счета в игре
