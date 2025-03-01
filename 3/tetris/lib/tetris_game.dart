@@ -37,6 +37,7 @@ class _TetrisGameState extends State<TetrisGame> {
             child: GameScores(
               score: game.score,
               onRestart: () {
+                // Перезапускаем игру
                 game.restart();
               },
             ),

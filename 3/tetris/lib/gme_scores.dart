@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 /// Виджет для отображения количества набранных очков
 /// и кнопки для перезапуска игры после завершения игры
 class GameScores extends StatelessWidget {
+  // Количество очков
   final int score;
+  // Обработчик события перезапуска игры
   final VoidCallback onRestart;
 
   const GameScores({
