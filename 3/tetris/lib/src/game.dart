@@ -1,10 +1,14 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
+
 import 'blocks/blocks.dart';
 import 'board.dart';
 
-final class Game {
+/// Наследуем класс от ChangeNotifier для возможности уведомления об изменениях
+/// внутри класса
+final class Game extends ChangeNotifier {
   late Board board; // Сделаем открытым
   late Block currentBlock;
   late Block nextBlock;
@@ -25,17 +29,22 @@ final class Game {
       updateBlock: updateBlock,
       gameOver: gameOver,
     );
-    keyboardEventHandler();
   }
 
   // Метод обновления блока фигуры
   void updateBlock(Block block) {
     currentBlock = block;
+    // Уведомляем слушателей об изменениях в блоке
+    // Когда пользователь нажимает на кнопку
+    notifyListeners();
   }
 
   // Метод обновления счета
   void updateScore() {
     score += 10;
+    // Уведомляем слушателей об изменениях в счете
+    // Для возможности обновления счета на экране
+    notifyListeners();
   }
 
   // Метод генерации новой фигуры
@@ -45,17 +54,12 @@ final class Game {
     return currentBlock;
   }
 
-  // Метод для установки прослушивания нажатий клавиш
-  // и передачи ASCII-кода нажатой клавиши на уровень ниже
-  void keyboardEventHandler() {}
-
   // Метод запуска игры
-  Future<void> start({required VoidCallback onUpdate}) async {
+  Future<void> start() async {
     // Запускаем игровой цикл
     while (!_isGameOver) {
       nextStep();
       await Future.delayed(const Duration(milliseconds: 500));
-      onUpdate();
     }
     onGameOver(score.toString());
   }
@@ -67,6 +71,8 @@ final class Game {
 
   void gameOver() {
     _isGameOver = true;
+    // Уведомляем слушателей об окончании игры
+    notifyListeners();
   }
 
   // Метод обработки шага игрового цикла
@@ -82,5 +88,7 @@ final class Game {
       board.newBlock();
       board.drawBoard();
     }
+    // Уведомляем слушателей после каждого шага
+    notifyListeners();
   }
 }

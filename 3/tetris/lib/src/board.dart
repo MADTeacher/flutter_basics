@@ -58,6 +58,9 @@ class Board {
           moveBlock(x + 1, y);
         }
     }
+    // Добавляем обратный вызов в Game
+    // Так как необходимо моментально обновить текущую фигуру
+    updateBlock(currentBlock);
   }
 
   // сохранение текущего состояния игрового поля
@@ -85,9 +88,7 @@ class Board {
   }
 
   // Метод отрисовки основной доски
-  void drawBoard() {
-    
-  }
+  void drawBoard() {}
 
   // Метод генерации нового блока и добавления его на основную доску
   void newBlock() {
@@ -147,7 +148,7 @@ class Board {
     if (isFilledBlock(tmpBlock.x, tmpBlock.y)) {
       currentBlock = tmpBlock;
       // обновляем текущую фигуру в классе Game
-      updateBlock(currentBlock); 
+      updateBlock(currentBlock);
     }
 
     var x = currentBlock.x;
@@ -158,7 +159,7 @@ class Board {
       for (int j = 0; j < 4; j++) {
         // убираем старую фигуру
         mainBoard[y + i][x + j] -= tmpBlock[i][j];
-        
+
         // добавляем новую фигуру
         mainBoard[y + i][x + j] += currentBlock[i][j];
       }
@@ -181,14 +182,14 @@ class Board {
 
       if (i == widthBoard - 2) {
         // если строка заполнена
-      // очистка строки и сдвиг строк игровой доски вниз
+        // очистка строки и сдвиг строк игровой доски вниз
         for (int k = j; k > 0; k--) {
           for (int idx = 1; idx <= widthBoard - 3; idx++) {
             mainBoard[k][idx] = mainBoard[k - 1][idx];
           }
         }
         // вызываем callBack-функцию для увеличение очков
-        updateScore(); 
+        updateScore();
       }
     }
   }
