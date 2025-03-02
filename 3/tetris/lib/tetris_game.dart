@@ -20,7 +20,9 @@ class _TetrisGameState extends State<TetrisGame> {
   @override
   void initState() {
     super.initState();
-    game = Game();
+    game = Game(
+      onGameOver: (scores) {},
+    );
     game.start();
   }
 
