@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tetris/game_scores.dart';
+import 'package:tetris/main.dart';
 
 /// {@template GameOverScreen}
 ///  Экран окончания игры
@@ -19,7 +20,7 @@ class GameOverScreen extends StatelessWidget {
           score: scores,
           onRestart: () {
             // Переход на экран игры
-            Navigator.pushReplacementNamed(context, '/game');
+            Navigator.pushReplacementNamed(context, GameRouter.gameRoute);
           }),
     );
   }

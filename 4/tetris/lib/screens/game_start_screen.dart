@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tetris/main.dart';
 
 /// {@template GameStartScreen}
 /// Рутовый экран приложения
@@ -14,7 +15,7 @@ class GameStartScreen extends StatelessWidget {
         child: ElevatedButton(
             onPressed: () {
               // Переход на экран игры
-              Navigator.pushReplacementNamed(context, '/game');
+              Navigator.pushReplacementNamed(context, GameRouter.gameRoute);
             },
             child: Text(
               'Начать игру',

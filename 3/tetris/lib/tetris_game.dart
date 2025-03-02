@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tetris/gme_scores.dart';
 import 'package:tetris/src/board.dart';
 import 'package:tetris/src/game.dart';
 
@@ -20,7 +19,11 @@ class _TetrisGameState extends State<TetrisGame> {
   @override
   void initState() {
     super.initState();
-    game = Game();
+    game = Game(
+       onGameOver: (scores) {
+        
+      },
+    );
     game.start();
   }
 
@@ -32,17 +35,6 @@ class _TetrisGameState extends State<TetrisGame> {
       listenable: game,
       // Перестраиваем виджет при изменении состояния игры
       builder: (context, _) {
-        if (game.isGameOver) {
-          return Center(
-            child: GameScores(
-              score: game.score,
-              onRestart: () {
-                // Перезапускаем игру
-                game.restart();
-              },
-            ),
-          );
-        }
         return Focus(
           autofocus: true,
           onKeyEvent: (FocusNode node, KeyEvent event) {

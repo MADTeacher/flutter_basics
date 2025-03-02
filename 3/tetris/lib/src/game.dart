@@ -13,8 +13,10 @@ final class Game extends ChangeNotifier {
   late Block nextBlock;
   bool _isGameOver = false;
   int score = 0;
+  // Обратный вызов при окончании игры
+  final Function(String scores) onGameOver;
 
-  Game() {
+  Game({required this.onGameOver}) {
     currentBlock = getNewRandomBlock();
     nextBlock = getNewRandomBlock();
 
