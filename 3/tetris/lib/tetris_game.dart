@@ -20,7 +20,9 @@ class _TetrisGameState extends State<TetrisGame> {
   @override
   void initState() {
     super.initState();
-    game = Game();
+    game = Game(
+      onGameOver: (scores) {},
+    );
     game.start();
   }
 
@@ -62,12 +64,10 @@ class _TetrisGameState extends State<TetrisGame> {
               builder: (context, constraints) {
                 final board = game.board.mainBoard;
                 // Вычисляем размер клетки поля
-                double blockSize = min(constraints.maxWidth / board[0].length,
-                    constraints.maxHeight / board.length);
+                double blockSize = min(constraints.maxWidth / board[0].length, constraints.maxHeight / board.length);
                 return CustomPaint(
                   painter: _GamePainter(board, blockSize),
-                  size: Size(
-                      board[0].length * blockSize, board.length * blockSize),
+                  size: Size(board[0].length * blockSize, board.length * blockSize),
                 );
               },
             ),
@@ -92,8 +92,7 @@ class _GamePainter extends CustomPainter {
 
     for (int i = 0; i < board.length - 1; i++) {
       for (int j = 0; j < board[i].length - 1; j++) {
-        Rect rect =
-            Rect.fromLTWH(j * blockSize, i * blockSize, blockSize, blockSize);
+        Rect rect = Rect.fromLTWH(j * blockSize, i * blockSize, blockSize, blockSize);
         switch (board[i][j]) {
           // Отрисовка пустых клеток поля
           case Board.posFree:
