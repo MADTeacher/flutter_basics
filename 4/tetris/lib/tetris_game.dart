@@ -58,10 +58,18 @@ class _TetrisGameState extends State<TetrisGame> {
                 // Вычисляем размер клетки поля
                 double blockSize = min(constraints.maxWidth / board[0].length,
                     constraints.maxHeight / board.length);
-                return CustomPaint(
-                  painter: _GamePainter(board, blockSize),
-                  size: Size(
-                      board[0].length * blockSize, board.length * blockSize),
+                return Column(
+                  children: [
+                    Expanded(
+                      child: CustomPaint(
+                        painter: _GamePainter(board, blockSize),
+                        size: Size(board[0].length * blockSize,
+                            board.length * blockSize),
+                      ),
+                    ),
+                    // Отображение текущего счета
+                    Text('Очки: ${game.score}', style: TextStyle(fontSize: 24)),
+                  ],
                 );
               },
             ),
