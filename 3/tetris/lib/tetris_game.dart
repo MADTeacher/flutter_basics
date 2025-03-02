@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tetris/gme_scores.dart';
+import 'package:tetris/game_scores.dart';
 import 'package:tetris/src/board.dart';
 import 'package:tetris/src/game.dart';
 
