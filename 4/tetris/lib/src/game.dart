@@ -14,9 +14,10 @@ final class Game extends ChangeNotifier {
   bool _isGameOver = false;
   int score = 0;
 
-  final VoidCallback onGameOver;
+  // Обратный вызов при окончании игры
+  final Function(String scores) onGameOver;
 
-  Game(this.onGameOver) {
+  Game({required this.onGameOver}) {
     currentBlock = getNewRandomBlock();
     nextBlock = getNewRandomBlock();
 
@@ -83,7 +84,7 @@ final class Game extends ChangeNotifier {
     _isGameOver = true;
     // // Уведомляем слушателей об окончании игры
     // notifyListeners();
-    onGameOver();
+    onGameOver(score.toString());
   }
 
   // Метод обработки шага игрового цикла

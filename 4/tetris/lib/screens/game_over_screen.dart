@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:tetris/game_scores.dart';
 import 'package:tetris/main.dart';
 
-/// {@template GameOverScreen}
 ///  Экран окончания игры
-/// {@endtemplate}
 class GameOverScreen extends StatelessWidget {
-  /// {@macro GameOverScreen}
   const GameOverScreen({super.key});
 
   @override
@@ -16,12 +13,14 @@ class GameOverScreen extends StatelessWidget {
     final scores = int.tryParse(args.toString()) ?? 0;
 
     return Scaffold(
-      body: GameScores(
-          score: scores,
-          onRestart: () {
-            // Переход на экран игры
-            Navigator.pushReplacementNamed(context, GameRouter.gameRoute);
-          }),
-    );
+        body: GameScores(
+            score: scores,
+            onRestart: () {
+              // Переход на экран игры
+              Navigator.pushReplacementNamed(
+                context,
+                GameRouter.gameRoute,
+              );
+            }));
   }
 }

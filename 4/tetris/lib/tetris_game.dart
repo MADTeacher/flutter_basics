@@ -21,9 +21,13 @@ class _TetrisGameState extends State<TetrisGame> {
   void initState() {
     super.initState();
     game = Game(
-      () {
+      onGameOver: (scores) {
         // Переход на экран окончания игры
-        Navigator.pushReplacementNamed(context, GameRouter.gameOverRoute);
+        Navigator.pushReplacementNamed(
+          context,
+          GameRouter.gameOverRoute,
+          arguments: scores,
+        );
       },
     );
     game.start();

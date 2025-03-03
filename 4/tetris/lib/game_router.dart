@@ -1,8 +1,6 @@
 part of 'main.dart';
 
-/// {@template GameRouter}
 ///  Роутер игры.
-/// {@endtemplate}
 abstract final class GameRouter {
   /// Начальный маршрут.
   static const String initialRoute = '/';
@@ -15,8 +13,8 @@ abstract final class GameRouter {
 
   /// Маршруты приложения.
   static final Map<String, WidgetBuilder> _appRoutes = {
-    // Рутовый экран
-    initialRoute: (_) => const GameStartScreen(),
+    // Рутовый экран - главное меню
+    initialRoute: (_) => const MainMenuScreen(),
     // Экран игры
     gameRoute: (_) => const GameScreen(),
     // Экран окончания игры
