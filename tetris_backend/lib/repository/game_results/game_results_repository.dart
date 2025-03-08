@@ -7,15 +7,15 @@ class GameResultsRepository {
   GameResultsRepository(this.db);
   final Database db;
 
-  Future<GameScore> create(CreateGameResult gameResult) async {
-    final dto = await db.into(db.gameScores).insertReturning(
+  Future<GameScore> create(CreateGameResult score) async {
+    final dbGameScore = await db.into(db.gameScores).insertReturning(
           GameScoresCompanion(
-            userId: Value(gameResult.userId),
-            result: Value(gameResult.result),
+            userId: Value(score.userId),
+            result: Value(score.result),
           ),
         );
 
-    return GameScore.fromDto(dto);
+    return GameScore.fromDto(dbGameScore);
   }
 
   Future<List<UserWithScore>> getUsersWithScores() async {

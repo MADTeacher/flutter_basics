@@ -43,3 +43,8 @@ LazyDatabase _openConnection() {
     return NativeDatabase(file);
   });
 }
+
+class NotExistsException implements Exception {
+  NotExistsException(this.message);
+  final String message;
+}
