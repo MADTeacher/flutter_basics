@@ -9,9 +9,6 @@ environment:
 dependencies:
   dart_frog: ^1.2.0
   drift: ^2.25.1
-  sqlite3_flutter_libs: ^0.5.31
-  path_provider: ^2.1.5
-  path: ^1.9.1
   json_serializable: ^6.9.4
   talker: ^4.6.14
 

@@ -1,4 +1,5 @@
 import 'package:dart_frog/dart_frog.dart';
+import 'package:drift/native.dart';
 import 'package:tetris_backend/repository/users/models/create_user.dart';
 import 'package:tetris_backend/repository/users/users_repository.dart';
 
@@ -33,7 +34,17 @@ Future<Response> _post(
 
     final user = await usersRepository.create(userToCreate);
     return Response.json(body: user, statusCode: 201);
-  } catch (_) {
+  } catch (e) {
+    print(e);
+    if (e is SqliteException) {
+      //TODO: нужно обрабатывать иначе, но иначе никак)
+      if (e.message.contains('UNIQUE')) {
+        return Response.json(
+          body: {'message': 'Пользователь с таким email уже существует'},
+          statusCode: 400,
+        );
+      }
+    }
     return Response.json(
       body: {'message': 'Что-то пошло не так'},
       statusCode: 500,
