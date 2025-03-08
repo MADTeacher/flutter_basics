@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/shared_prefs_custom_data.iml" filepath="$PROJECT_DIR$/shared_prefs_custom_data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/shared_prefs_custom_data_android.iml" filepath="$PROJECT_DIR$/android/shared_prefs_custom_data_android.iml" />
+    </modules>
+  </component>
+</project>
