@@ -1,8 +1,3 @@
-import 'package:json_annotation/json_annotation.dart';
-
-part 'create_user.g.dart';
-
-@JsonSerializable(createToJson: false)
 class CreateUser {
   const CreateUser({
     required this.nickname,
@@ -12,6 +7,10 @@ class CreateUser {
   final String nickname;
   final String email;
 
-  factory CreateUser.fromJson(Map<String, dynamic> json) =>
-      _$CreateUserFromJson(json);
+  factory CreateUser.fromJson(Map<String, dynamic> json) {
+    return CreateUser(
+      nickname: json['nickname'],
+      email: json['email'],
+    );
+  }
 }

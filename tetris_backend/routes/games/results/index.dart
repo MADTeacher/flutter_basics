@@ -10,8 +10,8 @@ Future<Response> onRequest(RequestContext context) async {
   }
 
   final resultsRepository = context.read<GameResultsRepository>();
-  // final users = await gameResultsRepository.getUsers();
-  return Response.json(body: {'message': 'none'});
+  final usersWithResults = await resultsRepository.getUsersWithScores();
+  return Response.json(body: usersWithResults);
 }
 
 Future<Response> _post(
@@ -26,7 +26,8 @@ Future<Response> _post(
 
     final gameResult = await resultsRepository.create(resultToCreate);
     return Response.json(body: gameResult, statusCode: 201);
-  } catch (_) {
+  } catch (e) {
+    print(e);
     return Response.json(
       body: {'message': 'Что-то пошло не так'},
       statusCode: 500,

@@ -8,15 +8,18 @@ class UsersRepository {
   final Database db;
 
   Future<User> create(CreateUser user) async {
-    final created = await db.into(db.users).insertReturning(
+    final dto = await db.into(db.users).insertReturning(
           UsersCompanion(
             nickname: Value(user.nickname),
             email: Value(user.email),
           ),
         );
-    return created;
+    return User.fromDto(dto);
   }
 
   // Получить всех пользователей
-  Future<List<User>> getUsers() => db.select(db.users).get();
+  Future<List<User>> getUsers() => db
+      .select(db.users)
+      .get()
+      .then((dtolist) => dtolist.map(User.fromDto).toList());
 }

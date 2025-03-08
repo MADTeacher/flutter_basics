@@ -5,7 +5,7 @@ import 'package:drift/native.dart';
 part 'database.g.dart';
 
 // Определяем таблицу пользователей
-@DataClassName('User')
+@DataClassName('UserDto')
 class Users extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get nickname => text().withLength(min: 1, max: 50)();
@@ -13,15 +13,16 @@ class Users extends Table {
 }
 
 // Определяем таблицу результатов игр
-@DataClassName('GameResult')
-class GameResults extends Table {
+@DataClassName('GameScoreDto')
+class GameScores extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get userId => integer()();
   IntColumn get result => integer()();
+  DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 }
 
 // Определяем базу данных
-@DriftDatabase(tables: [Users, GameResults])
+@DriftDatabase(tables: [Users, GameScores])
 class Database extends _$Database {
   Database() : super(_openConnection());
 
