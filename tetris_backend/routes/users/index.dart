@@ -39,21 +39,27 @@ Future<Response> _post(
       );
     }
 
-    ///TODO: можно добавить валидацию email и noickname по реугляркам
+    final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+    if (!emailRegex.hasMatch(userToCreate.email)) {
+      return Response.json(
+        body: {'message': "Неправильный формат email"},
+        statusCode: 400,
+      );
+    }
+
+    final isUserExis = await usersRepository.containsUserWithEmail(
+      userToCreate.email,
+    );
+    if (isUserExis) {
+      return Response.json(
+        body: {'message': 'Пользователь с таким email уже существует'},
+        statusCode: 400,
+      );
+    }
 
     final user = await usersRepository.createUser(userToCreate);
     return Response.json(body: user, statusCode: 201);
   } catch (e) {
-    // print(e);
-    // if (e is SqliteException) {
-    //   //TODO: нужно обрабатывать иначе, но иначе никак)
-    //   if (e.message.contains('UNIQUE')) {
-    //     return Response.json(
-    //       body: {'message': 'Пользователь с таким email уже существует'},
-    //       statusCode: 400,
-    //     );
-    //   }
-    // }
     return Response.json(
       body: {'message': 'Что-то пошло не так'},
       statusCode: 500,

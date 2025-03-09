@@ -31,4 +31,12 @@ class UsersRepository {
       .select(db.users)
       .get()
       .then((dbUsers) => dbUsers.map(User.fromDto).toList());
+
+  // Проверить, существует ли пользователь с данным email
+  Future<bool> containsUserWithEmail(String email) async {
+    final res = await (db.select(db.users)
+          ..where((tbl) => tbl.email.equals(email)))
+        .get();
+    return res.isNotEmpty;
+  }
 }
