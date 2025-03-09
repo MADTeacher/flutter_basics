@@ -3,6 +3,7 @@
 ## Запуск проектка
 ```
 dart pub global activate dart_frog_cli
+dart pub get
 dart_frog dev
 ```
 
