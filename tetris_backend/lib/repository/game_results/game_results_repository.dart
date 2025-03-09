@@ -20,7 +20,8 @@ class GameResultsRepository {
 
   Future<List<UserWithScore>> getUsersWithScores() async {
     final query = db.select(db.users).join([
-      leftOuterJoin(
+      innerJoin(
+        // ✅ Изменили на INNER JOIN
         db.gameScores,
         db.gameScores.userId.equalsExp(db.users.id),
       )
@@ -30,7 +31,8 @@ class GameResultsRepository {
 
     final result = await query.map((row) {
       final dbUser = row.readTable(db.users);
-      final dbScore = row.readTable(db.gameScores);
+      final dbScore = row
+          .readTable(db.gameScores); // ✅ INNER JOIN гарантирует, что он не null
       final user = User.fromDto(dbUser);
       final score = GameScore.fromDto(dbScore);
       return UserWithScore(user: user, score: score);
