@@ -1,0 +1,19 @@
+{
+    "@@locale": "en",
+    "title": "Pizza Details",
+    "@title": {
+        "description": "Title for the pizza details screen"
+    },
+    "pizzaName": "Pepperoni Pizza",
+    "@pizzaName": {
+        "description": "Name of the pizza"
+    },
+    "pizzaIngredients": "Ingredients: Pepperoni, Cheese, Tomato Sauce",
+    "@pizzaIngredients": {
+        "description": "List of pizza ingredients"
+    },
+    "orderPizzaButton": "Order 1 more pizza",
+    "@orderPizzaButton": {
+        "description": "Order additional pizzas"
+    }
+}

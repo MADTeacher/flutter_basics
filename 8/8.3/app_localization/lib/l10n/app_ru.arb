@@ -1,0 +1,18 @@
+{
+    "@@locale": "ru",
+    "nameHint": "Введите ваше имя",
+    "hello": "Привет, {userName}!",
+    "@hello": {
+        "placeholders": {
+            "userName": {
+                "type": "String",
+                "example": "Иван"
+            }
+        }
+    },
+    "send": "Отправить",
+    "title": "Детали пиццы",
+    "pizzaName": "Пицца Пепперони",
+    "pizzaIngredients": "Ингредиенты: Пепперони, Сыр, Томатный соус",
+    "orderPizzaButton": "Заказать ещё 1 пиццу"  
+}

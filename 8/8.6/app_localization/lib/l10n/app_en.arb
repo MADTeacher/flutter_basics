@@ -1,0 +1,52 @@
+{
+    "@@locale": "en",
+    "title": "Date and Time",
+    "@title": {
+        "description": "Title for the date and time screen"
+    },
+    "dateFormat1": "Date: {date}",
+    "@dateFormat1": {
+        "description": "Simple date format",
+        "placeholders": {
+            "date": {
+                "type": "DateTime",
+                "format": "yMd"
+            }
+        }
+    },
+    "dateFormat2": "Full date: {date}",
+    "@dateFormat2": {
+        "description": "Full date format",
+        "placeholders": {
+            "date": {
+                "type": "DateTime",
+                "format": "yMMMMd"
+            }
+        }
+    },
+    "timeFormat": "Time: {time}",
+    "@timeFormat": {
+        "description": "Simple time format",
+        "placeholders": {
+            "time": {
+                "type": "DateTime",
+                "format": "Hm"
+            }
+        }
+    },
+    "dateTimeFormat": "Date and time: {dateTime}",
+    "@dateTimeFormat": {
+        "description": "Combined date and time format",
+        "placeholders": {
+            "dateTime": {
+                "type": "DateTime",
+                "format": "y/M/d H:mm",
+                "isCustomDateFormat": true
+            }
+        }
+    },
+    "updateDateTime": "Update Date & Time",
+    "@updateDateTime": {
+        "description": "Text for update date and time button"
+    }
+}
