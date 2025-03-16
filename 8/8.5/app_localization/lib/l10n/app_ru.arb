@@ -1,0 +1,53 @@
+{
+    "@@locale": "ru",
+    "nameHint": "Введите ваше имя",
+    "hello": "Привет, {userName}!",
+    "@hello": {
+        "placeholders": {
+            "userName": {
+                "type": "String",
+                "example": "Иван"
+            }
+        }
+    },
+    "send": "Отправить",
+    "title": "Детали пиццы",
+    "pizzaName": "Пицца Пепперони",
+    "pizzaIngredients": "Ингредиенты: Пепперони, Сыр, Томатный соус",
+    "orderPizzaButton": "{count, plural, =0{Заказать первую пиццу} other{Заказать ещё 1 пиццу}}",
+    "@orderPizzaButton": {
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "1"
+            }
+        }
+    },
+    "orderPizza": "{count, plural, =0{Вы еще не заказали ни одной пиццы} =1{Вы заказали 1 пиццу} few{Вы заказали {count} пиццы} other{Вы заказали {count} пицц}}",
+    "@orderPizza": {
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "1"
+            }
+        }
+    },
+    "pizzaSizeLabel": "Выберите размер пиццы",
+    "selectedSize": "Выбранный размер пиццы - {size}",
+    "@selectedSize": {
+        "placeholders": {
+            "size": {
+                "type": "String",
+                "example": "Средний"
+            }
+        }
+    },
+    "pizzaSize": "{size, select, mini{Мини} small{Маленький} medium{Средний} large{Большой} supersize{Суперсайз} other{Неизвестный}}",
+    "@pizzaSize": {
+        "placeholders": {
+            "size": {
+                "type": "String"
+            }
+        }
+    }
+}

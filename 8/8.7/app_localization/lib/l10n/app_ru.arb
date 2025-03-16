@@ -1,0 +1,41 @@
+{
+    "@@locale": "ru",
+    "title": "Форматирование чисел и валюты",
+    "formatInteger": "Целое число: {number}",
+    "@formatInteger": {
+        "placeholders": {
+            "number": {
+                "type": "int",
+                "format": "decimalPattern"
+            }
+        }
+    },
+    "formatDecimal": "Десятичное число: {number}",
+    "@formatDecimal": {
+        "placeholders": {
+            "number": {
+                "type": "double",
+                "format": "decimalPattern"
+            }
+        }
+    },
+    "formatPercent": "Процент: {number}",
+    "@formatPercent": {
+        "placeholders": {
+            "number": {
+                "type": "double",
+                "format": "percentPattern"
+            }
+        }
+    },
+    "formatCurrency": "Валюта: {amount}",
+    "@formatCurrency": {
+        "placeholders": {
+            "amount": {
+                "type": "double",
+                "format": "currency"
+            }
+        }
+    },
+    "updateValues": "Обновить значения"
+}

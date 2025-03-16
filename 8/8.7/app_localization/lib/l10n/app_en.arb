@@ -1,0 +1,51 @@
+{
+    "@@locale": "en",
+    "title": "Number and Currency Formatting",
+    "@title": {
+        "description": "Title for the number formatting screen"
+    },
+    "formatInteger": "Integer: {number}",
+    "@formatInteger": {
+        "description": "Basic integer number format",
+        "placeholders": {
+            "number": {
+                "type": "int",
+                "format": "decimalPattern"
+            }
+        }
+    },
+    "formatDecimal": "Decimal: {number}",
+    "@formatDecimal": {
+        "description": "Decimal number format with 2 decimal places",
+        "placeholders": {
+            "number": {
+                "type": "double",
+                "format": "decimalPattern"
+            }
+        }
+    },
+    "formatPercent": "Percentage: {number}",
+    "@formatPercent": {
+        "description": "Percentage format",
+        "placeholders": {
+            "number": {
+                "type": "double",
+                "format": "percentPattern"
+            }
+        }
+    },
+    "formatCurrency": "Currency: {amount}",
+    "@formatCurrency": {
+        "description": "Currency format",
+        "placeholders": {
+            "amount": {
+                "type": "double",
+                "format": "currency"
+            }
+        }
+    },
+    "updateValues": "Update Values",
+    "@updateValues": {
+        "description": "Text for update values button"
+    }
+}

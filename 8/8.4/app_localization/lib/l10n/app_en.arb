@@ -1,0 +1,53 @@
+{
+    "@@locale": "en",
+    "nameHint": "Enter your name",
+    "@nameHint": {
+        "description": "Hint text for the name input field"
+    },
+    "hello": "Hello {userName}!",
+    "@hello": {
+        "description": "Simple hello greeting with user's name",
+        "placeholders": {
+            "userName": {
+                "type": "String",
+                "example": "John"
+            }
+        }
+    },
+    "send": "Send",
+    "@send": {
+        "description": "Text for send button"
+    },
+    "title": "Pizza Details",
+    "@title": {
+        "description": "Title for the pizza details screen"
+    },
+    "pizzaName": "Pepperoni Pizza",
+    "@pizzaName": {
+        "description": "Name of the pizza"
+    },
+    "pizzaIngredients": "Ingredients: Pepperoni, Cheese, Tomato Sauce",
+    "@pizzaIngredients": {
+        "description": "List of pizza ingredients"
+    },
+    "orderPizzaButton": "{count, plural, =0{Order first pizza} other{Order 1 more pizza}}",
+    "@orderPizzaButton": {
+        "description": "Order additional pizzas",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "1"
+            }
+        }
+    },
+    "orderPizza": "{count, plural, =0{You haven't ordered any pizzas yet} =1{You ordered 1 pizza} other{You ordered {count} pizzas}}",
+    "@orderPizza": {
+        "description": "Shows the number of ordered pizzas",
+        "placeholders": {
+            "count": {
+                "type": "int",
+                "example": "1"
+            }
+        }
+    }
+}

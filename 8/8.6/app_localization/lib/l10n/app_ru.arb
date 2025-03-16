@@ -1,0 +1,42 @@
+{
+    "@@locale": "ru",
+    "title": "Дата и время",
+    "dateFormat1": "Дата: {date}",
+    "@dateFormat1": {
+        "placeholders": {
+            "date": {
+                "type": "DateTime",
+                "format": "yMd"
+            }
+        }
+    },
+    "dateFormat2": "Полная дата: {date}",
+    "@dateFormat2": {
+        "placeholders": {
+            "date": {
+                "type": "DateTime",
+                "format": "yMMMMd"
+            }
+        }
+    },
+    "timeFormat": "Время: {time}",
+    "@timeFormat": {
+        "placeholders": {
+            "time": {
+                "type": "DateTime",
+                "format": "Hm"
+            }
+        }
+    },
+    "dateTimeFormat": "Дата и время: {dateTime}",
+    "@dateTimeFormat": {
+        "placeholders": {
+            "dateTime": {
+                "type": "DateTime",
+                "format": "y/M/d H:mm",
+                "isCustomDateFormat": true
+            }
+        }
+    },
+    "updateDateTime": "Обновить дату и время"
+}
