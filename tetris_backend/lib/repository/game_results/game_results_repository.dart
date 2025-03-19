@@ -26,7 +26,8 @@ class GameResultsRepository {
       )
     ])
       ..addColumns([db.gameScores.score.max()])
-      ..groupBy([db.users.id]);
+      ..groupBy([db.users.id])
+      ..orderBy([OrderingTerm.desc(db.gameScores.score.max())]);
 
     final result = await query.map((row) {
       final dbUser = row.readTable(db.users);
