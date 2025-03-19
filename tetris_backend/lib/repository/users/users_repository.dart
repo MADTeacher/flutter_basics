@@ -7,36 +7,28 @@ class UsersRepository {
 
   final Database db;
 
-  Future<User> createUser(CreateUser user) async {
+  Future<User> createUser(String nickname) async {
     final dbUser = await db.into(db.users).insertReturning(
-          UsersCompanion(
-            nickname: Value(user.nickname),
-            email: Value(user.email),
-          ),
+          UsersCompanion(nickname: Value(nickname)),
         );
     return User.fromDto(dbUser);
   }
 
-  Future<User> getUser(int id) async {
-    final res =
-        await (db.select(db.users)..where((tbl) => tbl.id.equals(id))).get();
+  Future<User> getUser(String nickname) async {
+    final res = await (db.select(db.users)
+          ..where((tbl) => tbl.nickname.equals(nickname)))
+        .get();
     if (res.isEmpty) {
-      throw NotExistsException('User with id $id not found');
+      throw NotExistsException('User with id $nickname not found');
     }
     return User.fromDto(res.first);
   }
 
-  // Получить всех пользователей
-  Future<List<User>> getUsers() => db
-      .select(db.users)
-      .get()
-      .then((dbUsers) => dbUsers.map(User.fromDto).toList());
-
-  // Проверить, существует ли пользователь с данным email
-  Future<bool> containsUserWithEmail(String email) async {
-    final res = await (db.select(db.users)
-          ..where((tbl) => tbl.email.equals(email)))
-        .get();
-    return res.isNotEmpty;
+  Future<User> getOrCreateUser(String nickname) async {
+    try {
+      return await getUser(nickname);
+    } on NotExistsException {
+      return createUser(nickname);
+    }
   }
 }

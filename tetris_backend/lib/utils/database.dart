@@ -9,7 +9,6 @@ part 'database.g.dart';
 class Users extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get nickname => text().withLength(min: 1, max: 50)();
-  TextColumn get email => text().unique()();
 }
 
 // Определяем таблицу результатов игр
@@ -17,7 +16,7 @@ class Users extends Table {
 class GameScores extends Table {
   IntColumn get id => integer().autoIncrement()();
   IntColumn get userId => integer()();
-  IntColumn get result => integer()();
+  IntColumn get score => integer()();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
 }
 
