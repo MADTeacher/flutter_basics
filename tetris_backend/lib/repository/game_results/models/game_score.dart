@@ -4,26 +4,36 @@ class GameScore {
   const GameScore({
     required this.id,
     required this.userId,
-    required this.result,
+    required this.score,
     required this.createdAt,
   });
 
   final int id;
   final int userId;
-  final int result;
+  final int score;
   final DateTime createdAt;
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'userId': userId,
-        'result': result,
+        'score': score,
         'createdAt': createdAt.toIso8601String(),
       };
 
   factory GameScore.fromDto(GameScoreDto dto) => GameScore(
         id: dto.id,
         userId: dto.userId,
-        result: dto.result,
+        score: dto.score,
         createdAt: dto.createdAt,
       );
+}
+
+class CreateGameScore {
+  CreateGameScore({
+    required this.userId,
+    required this.score,
+  });
+
+  final int userId;
+  final int score;
 }

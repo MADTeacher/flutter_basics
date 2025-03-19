@@ -26,15 +26,8 @@ class $UsersTable extends Users with TableInfo<$UsersTable, UserDto> {
           GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 50),
       type: DriftSqlType.string,
       requiredDuringInsert: true);
-  static const VerificationMeta _emailMeta = const VerificationMeta('email');
   @override
-  late final GeneratedColumn<String> email = GeneratedColumn<String>(
-      'email', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
-  @override
-  List<GeneratedColumn> get $columns => [id, nickname, email];
+  List<GeneratedColumn> get $columns => [id, nickname];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -54,12 +47,6 @@ class $UsersTable extends Users with TableInfo<$UsersTable, UserDto> {
     } else if (isInserting) {
       context.missing(_nicknameMeta);
     }
-    if (data.containsKey('email')) {
-      context.handle(
-          _emailMeta, email.isAcceptableOrUnknown(data['email']!, _emailMeta));
-    } else if (isInserting) {
-      context.missing(_emailMeta);
-    }
     return context;
   }
 
@@ -73,8 +60,6 @@ class $UsersTable extends Users with TableInfo<$UsersTable, UserDto> {
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       nickname: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}nickname'])!,
-      email: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}email'])!,
     );
   }
 
@@ -87,15 +72,12 @@ class $UsersTable extends Users with TableInfo<$UsersTable, UserDto> {
 class UserDto extends DataClass implements Insertable<UserDto> {
   final int id;
   final String nickname;
-  final String email;
-  const UserDto(
-      {required this.id, required this.nickname, required this.email});
+  const UserDto({required this.id, required this.nickname});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['nickname'] = Variable<String>(nickname);
-    map['email'] = Variable<String>(email);
     return map;
   }
 
@@ -103,7 +85,6 @@ class UserDto extends DataClass implements Insertable<UserDto> {
     return UsersCompanion(
       id: Value(id),
       nickname: Value(nickname),
-      email: Value(email),
     );
   }
 
@@ -113,7 +94,6 @@ class UserDto extends DataClass implements Insertable<UserDto> {
     return UserDto(
       id: serializer.fromJson<int>(json['id']),
       nickname: serializer.fromJson<String>(json['nickname']),
-      email: serializer.fromJson<String>(json['email']),
     );
   }
   @override
@@ -122,20 +102,17 @@ class UserDto extends DataClass implements Insertable<UserDto> {
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'nickname': serializer.toJson<String>(nickname),
-      'email': serializer.toJson<String>(email),
     };
   }
 
-  UserDto copyWith({int? id, String? nickname, String? email}) => UserDto(
+  UserDto copyWith({int? id, String? nickname}) => UserDto(
         id: id ?? this.id,
         nickname: nickname ?? this.nickname,
-        email: email ?? this.email,
       );
   UserDto copyWithCompanion(UsersCompanion data) {
     return UserDto(
       id: data.id.present ? data.id.value : this.id,
       nickname: data.nickname.present ? data.nickname.value : this.nickname,
-      email: data.email.present ? data.email.value : this.email,
     );
   }
 
@@ -143,56 +120,46 @@ class UserDto extends DataClass implements Insertable<UserDto> {
   String toString() {
     return (StringBuffer('UserDto(')
           ..write('id: $id, ')
-          ..write('nickname: $nickname, ')
-          ..write('email: $email')
+          ..write('nickname: $nickname')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, nickname, email);
+  int get hashCode => Object.hash(id, nickname);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is UserDto &&
           other.id == this.id &&
-          other.nickname == this.nickname &&
-          other.email == this.email);
+          other.nickname == this.nickname);
 }
 
 class UsersCompanion extends UpdateCompanion<UserDto> {
   final Value<int> id;
   final Value<String> nickname;
-  final Value<String> email;
   const UsersCompanion({
     this.id = const Value.absent(),
     this.nickname = const Value.absent(),
-    this.email = const Value.absent(),
   });
   UsersCompanion.insert({
     this.id = const Value.absent(),
     required String nickname,
-    required String email,
-  })  : nickname = Value(nickname),
-        email = Value(email);
+  }) : nickname = Value(nickname);
   static Insertable<UserDto> custom({
     Expression<int>? id,
     Expression<String>? nickname,
-    Expression<String>? email,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (nickname != null) 'nickname': nickname,
-      if (email != null) 'email': email,
     });
   }
 
-  UsersCompanion copyWith(
-      {Value<int>? id, Value<String>? nickname, Value<String>? email}) {
+  UsersCompanion copyWith({Value<int>? id, Value<String>? nickname}) {
     return UsersCompanion(
       id: id ?? this.id,
       nickname: nickname ?? this.nickname,
-      email: email ?? this.email,
     );
   }
 
@@ -205,9 +172,6 @@ class UsersCompanion extends UpdateCompanion<UserDto> {
     if (nickname.present) {
       map['nickname'] = Variable<String>(nickname.value);
     }
-    if (email.present) {
-      map['email'] = Variable<String>(email.value);
-    }
     return map;
   }
 
@@ -215,8 +179,7 @@ class UsersCompanion extends UpdateCompanion<UserDto> {
   String toString() {
     return (StringBuffer('UsersCompanion(')
           ..write('id: $id, ')
-          ..write('nickname: $nickname, ')
-          ..write('email: $email')
+          ..write('nickname: $nickname')
           ..write(')'))
         .toString();
   }
@@ -242,10 +205,10 @@ class $GameScoresTable extends GameScores
   late final GeneratedColumn<int> userId = GeneratedColumn<int>(
       'user_id', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _resultMeta = const VerificationMeta('result');
+  static const VerificationMeta _scoreMeta = const VerificationMeta('score');
   @override
-  late final GeneratedColumn<int> result = GeneratedColumn<int>(
-      'result', aliasedName, false,
+  late final GeneratedColumn<int> score = GeneratedColumn<int>(
+      'score', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _createdAtMeta =
       const VerificationMeta('createdAt');
@@ -256,7 +219,7 @@ class $GameScoresTable extends GameScores
       requiredDuringInsert: false,
       defaultValue: currentDateAndTime);
   @override
-  List<GeneratedColumn> get $columns => [id, userId, result, createdAt];
+  List<GeneratedColumn> get $columns => [id, userId, score, createdAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -276,11 +239,11 @@ class $GameScoresTable extends GameScores
     } else if (isInserting) {
       context.missing(_userIdMeta);
     }
-    if (data.containsKey('result')) {
-      context.handle(_resultMeta,
-          result.isAcceptableOrUnknown(data['result']!, _resultMeta));
+    if (data.containsKey('score')) {
+      context.handle(
+          _scoreMeta, score.isAcceptableOrUnknown(data['score']!, _scoreMeta));
     } else if (isInserting) {
-      context.missing(_resultMeta);
+      context.missing(_scoreMeta);
     }
     if (data.containsKey('created_at')) {
       context.handle(_createdAtMeta,
@@ -299,8 +262,8 @@ class $GameScoresTable extends GameScores
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       userId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}user_id'])!,
-      result: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}result'])!,
+      score: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}score'])!,
       createdAt: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
     );
@@ -315,19 +278,19 @@ class $GameScoresTable extends GameScores
 class GameScoreDto extends DataClass implements Insertable<GameScoreDto> {
   final int id;
   final int userId;
-  final int result;
+  final int score;
   final DateTime createdAt;
   const GameScoreDto(
       {required this.id,
       required this.userId,
-      required this.result,
+      required this.score,
       required this.createdAt});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['user_id'] = Variable<int>(userId);
-    map['result'] = Variable<int>(result);
+    map['score'] = Variable<int>(score);
     map['created_at'] = Variable<DateTime>(createdAt);
     return map;
   }
@@ -336,7 +299,7 @@ class GameScoreDto extends DataClass implements Insertable<GameScoreDto> {
     return GameScoresCompanion(
       id: Value(id),
       userId: Value(userId),
-      result: Value(result),
+      score: Value(score),
       createdAt: Value(createdAt),
     );
   }
@@ -347,7 +310,7 @@ class GameScoreDto extends DataClass implements Insertable<GameScoreDto> {
     return GameScoreDto(
       id: serializer.fromJson<int>(json['id']),
       userId: serializer.fromJson<int>(json['userId']),
-      result: serializer.fromJson<int>(json['result']),
+      score: serializer.fromJson<int>(json['score']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
     );
   }
@@ -357,24 +320,24 @@ class GameScoreDto extends DataClass implements Insertable<GameScoreDto> {
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'userId': serializer.toJson<int>(userId),
-      'result': serializer.toJson<int>(result),
+      'score': serializer.toJson<int>(score),
       'createdAt': serializer.toJson<DateTime>(createdAt),
     };
   }
 
   GameScoreDto copyWith(
-          {int? id, int? userId, int? result, DateTime? createdAt}) =>
+          {int? id, int? userId, int? score, DateTime? createdAt}) =>
       GameScoreDto(
         id: id ?? this.id,
         userId: userId ?? this.userId,
-        result: result ?? this.result,
+        score: score ?? this.score,
         createdAt: createdAt ?? this.createdAt,
       );
   GameScoreDto copyWithCompanion(GameScoresCompanion data) {
     return GameScoreDto(
       id: data.id.present ? data.id.value : this.id,
       userId: data.userId.present ? data.userId.value : this.userId,
-      result: data.result.present ? data.result.value : this.result,
+      score: data.score.present ? data.score.value : this.score,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
     );
   }
@@ -384,52 +347,52 @@ class GameScoreDto extends DataClass implements Insertable<GameScoreDto> {
     return (StringBuffer('GameScoreDto(')
           ..write('id: $id, ')
           ..write('userId: $userId, ')
-          ..write('result: $result, ')
+          ..write('score: $score, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, userId, result, createdAt);
+  int get hashCode => Object.hash(id, userId, score, createdAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is GameScoreDto &&
           other.id == this.id &&
           other.userId == this.userId &&
-          other.result == this.result &&
+          other.score == this.score &&
           other.createdAt == this.createdAt);
 }
 
 class GameScoresCompanion extends UpdateCompanion<GameScoreDto> {
   final Value<int> id;
   final Value<int> userId;
-  final Value<int> result;
+  final Value<int> score;
   final Value<DateTime> createdAt;
   const GameScoresCompanion({
     this.id = const Value.absent(),
     this.userId = const Value.absent(),
-    this.result = const Value.absent(),
+    this.score = const Value.absent(),
     this.createdAt = const Value.absent(),
   });
   GameScoresCompanion.insert({
     this.id = const Value.absent(),
     required int userId,
-    required int result,
+    required int score,
     this.createdAt = const Value.absent(),
   })  : userId = Value(userId),
-        result = Value(result);
+        score = Value(score);
   static Insertable<GameScoreDto> custom({
     Expression<int>? id,
     Expression<int>? userId,
-    Expression<int>? result,
+    Expression<int>? score,
     Expression<DateTime>? createdAt,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (userId != null) 'user_id': userId,
-      if (result != null) 'result': result,
+      if (score != null) 'score': score,
       if (createdAt != null) 'created_at': createdAt,
     });
   }
@@ -437,12 +400,12 @@ class GameScoresCompanion extends UpdateCompanion<GameScoreDto> {
   GameScoresCompanion copyWith(
       {Value<int>? id,
       Value<int>? userId,
-      Value<int>? result,
+      Value<int>? score,
       Value<DateTime>? createdAt}) {
     return GameScoresCompanion(
       id: id ?? this.id,
       userId: userId ?? this.userId,
-      result: result ?? this.result,
+      score: score ?? this.score,
       createdAt: createdAt ?? this.createdAt,
     );
   }
@@ -456,8 +419,8 @@ class GameScoresCompanion extends UpdateCompanion<GameScoreDto> {
     if (userId.present) {
       map['user_id'] = Variable<int>(userId.value);
     }
-    if (result.present) {
-      map['result'] = Variable<int>(result.value);
+    if (score.present) {
+      map['score'] = Variable<int>(score.value);
     }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
@@ -470,7 +433,7 @@ class GameScoresCompanion extends UpdateCompanion<GameScoreDto> {
     return (StringBuffer('GameScoresCompanion(')
           ..write('id: $id, ')
           ..write('userId: $userId, ')
-          ..write('result: $result, ')
+          ..write('score: $score, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
         .toString();
@@ -492,12 +455,10 @@ abstract class _$Database extends GeneratedDatabase {
 typedef $$UsersTableCreateCompanionBuilder = UsersCompanion Function({
   Value<int> id,
   required String nickname,
-  required String email,
 });
 typedef $$UsersTableUpdateCompanionBuilder = UsersCompanion Function({
   Value<int> id,
   Value<String> nickname,
-  Value<String> email,
 });
 
 class $$UsersTableFilterComposer extends Composer<_$Database, $UsersTable> {
@@ -513,9 +474,6 @@ class $$UsersTableFilterComposer extends Composer<_$Database, $UsersTable> {
 
   ColumnFilters<String> get nickname => $composableBuilder(
       column: $table.nickname, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<String> get email => $composableBuilder(
-      column: $table.email, builder: (column) => ColumnFilters(column));
 }
 
 class $$UsersTableOrderingComposer extends Composer<_$Database, $UsersTable> {
@@ -531,9 +489,6 @@ class $$UsersTableOrderingComposer extends Composer<_$Database, $UsersTable> {
 
   ColumnOrderings<String> get nickname => $composableBuilder(
       column: $table.nickname, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get email => $composableBuilder(
-      column: $table.email, builder: (column) => ColumnOrderings(column));
 }
 
 class $$UsersTableAnnotationComposer extends Composer<_$Database, $UsersTable> {
@@ -549,9 +504,6 @@ class $$UsersTableAnnotationComposer extends Composer<_$Database, $UsersTable> {
 
   GeneratedColumn<String> get nickname =>
       $composableBuilder(column: $table.nickname, builder: (column) => column);
-
-  GeneratedColumn<String> get email =>
-      $composableBuilder(column: $table.email, builder: (column) => column);
 }
 
 class $$UsersTableTableManager extends RootTableManager<
@@ -579,22 +531,18 @@ class $$UsersTableTableManager extends RootTableManager<
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<String> nickname = const Value.absent(),
-            Value<String> email = const Value.absent(),
           }) =>
               UsersCompanion(
             id: id,
             nickname: nickname,
-            email: email,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             required String nickname,
-            required String email,
           }) =>
               UsersCompanion.insert(
             id: id,
             nickname: nickname,
-            email: email,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
@@ -618,13 +566,13 @@ typedef $$UsersTableProcessedTableManager = ProcessedTableManager<
 typedef $$GameScoresTableCreateCompanionBuilder = GameScoresCompanion Function({
   Value<int> id,
   required int userId,
-  required int result,
+  required int score,
   Value<DateTime> createdAt,
 });
 typedef $$GameScoresTableUpdateCompanionBuilder = GameScoresCompanion Function({
   Value<int> id,
   Value<int> userId,
-  Value<int> result,
+  Value<int> score,
   Value<DateTime> createdAt,
 });
 
@@ -643,8 +591,8 @@ class $$GameScoresTableFilterComposer
   ColumnFilters<int> get userId => $composableBuilder(
       column: $table.userId, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get result => $composableBuilder(
-      column: $table.result, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get score => $composableBuilder(
+      column: $table.score, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<DateTime> get createdAt => $composableBuilder(
       column: $table.createdAt, builder: (column) => ColumnFilters(column));
@@ -665,8 +613,8 @@ class $$GameScoresTableOrderingComposer
   ColumnOrderings<int> get userId => $composableBuilder(
       column: $table.userId, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get result => $composableBuilder(
-      column: $table.result, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get score => $composableBuilder(
+      column: $table.score, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<DateTime> get createdAt => $composableBuilder(
       column: $table.createdAt, builder: (column) => ColumnOrderings(column));
@@ -687,8 +635,8 @@ class $$GameScoresTableAnnotationComposer
   GeneratedColumn<int> get userId =>
       $composableBuilder(column: $table.userId, builder: (column) => column);
 
-  GeneratedColumn<int> get result =>
-      $composableBuilder(column: $table.result, builder: (column) => column);
+  GeneratedColumn<int> get score =>
+      $composableBuilder(column: $table.score, builder: (column) => column);
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
@@ -719,25 +667,25 @@ class $$GameScoresTableTableManager extends RootTableManager<
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<int> userId = const Value.absent(),
-            Value<int> result = const Value.absent(),
+            Value<int> score = const Value.absent(),
             Value<DateTime> createdAt = const Value.absent(),
           }) =>
               GameScoresCompanion(
             id: id,
             userId: userId,
-            result: result,
+            score: score,
             createdAt: createdAt,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             required int userId,
-            required int result,
+            required int score,
             Value<DateTime> createdAt = const Value.absent(),
           }) =>
               GameScoresCompanion.insert(
             id: id,
             userId: userId,
-            result: result,
+            score: score,
             createdAt: createdAt,
           ),
           withReferenceMapper: (p0) => p0

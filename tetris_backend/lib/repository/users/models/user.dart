@@ -4,22 +4,12 @@ class User {
   User({
     required this.id,
     required this.nickname,
-    required this.email,
   });
 
   final int id;
   final String nickname;
-  final String email;
 
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'nickname': nickname,
-        'email': email,
-      };
+  Map<String, dynamic> toJson() => {'id': id, 'nickname': nickname};
 
-  factory User.fromDto(UserDto dto) => User(
-        id: dto.id,
-        nickname: dto.nickname,
-        email: dto.email,
-      );
+  factory User.fromDto(UserDto dto) => User(id: dto.id, nickname: dto.nickname);
 }

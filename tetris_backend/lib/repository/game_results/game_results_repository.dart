@@ -7,11 +7,11 @@ class GameResultsRepository {
   GameResultsRepository(this.db);
   final Database db;
 
-  Future<GameScore> create(CreateGameResult score) async {
+  Future<GameScore> create(CreateGameScore score) async {
     final dbGameScore = await db.into(db.gameScores).insertReturning(
           GameScoresCompanion(
             userId: Value(score.userId),
-            result: Value(score.result),
+            score: Value(score.score),
           ),
         );
 
@@ -25,7 +25,7 @@ class GameResultsRepository {
         db.gameScores.userId.equalsExp(db.users.id),
       )
     ])
-      ..addColumns([db.gameScores.result.max()])
+      ..addColumns([db.gameScores.score.max()])
       ..groupBy([db.users.id]);
 
     final result = await query.map((row) {
