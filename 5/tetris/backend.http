@@ -1,0 +1,13 @@
+### Запросить все очки
+GET http://localhost:8080/games/scores/
+Content-Type: application/json
+
+
+### Создать пользователя
+POST http://localhost:8080/games/scores/
+Content-Type: application/json
+
+{
+    "nickname": "tester5",
+    "score": 1200
+}
