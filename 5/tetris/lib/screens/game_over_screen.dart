@@ -10,17 +10,37 @@ class GameOverScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // Получаем заработанные очки, переданные в маршрут
     final args = ModalRoute.of(context)?.settings.arguments;
-    final scores = int.tryParse(args.toString()) ?? 0;
+    // Безопасно получаем имя игрока, переданное в маршрут
+    final userName = (args != null &&
+            args is Map<String, dynamic> &&
+            args['userName'] != null)
+        ? args['userName'].toString()
+        : 'Неизвестный игрок';
+
+    // Безопасно получаем количество очков, переданных в маршрут
+    final scores = (args != null && args is Map<String, dynamic>)
+        ? int.tryParse(args['scores'].toString()) ?? 0
+        : 0;
 
     return Scaffold(
         body: GameScores(
-            score: scores,
-            onRestart: () {
-              // Переход на экран игры
-              Navigator.pushReplacementNamed(
-                context,
-                GameRouter.gameRoute,
-              );
-            }));
+      score: scores,
+      onRestart: () {
+        // Переход на экран игры
+        Navigator.pushReplacementNamed(
+          context,
+          GameRouter.gameRoute,
+          arguments: userName,
+        );
+      },
+      onMainMenu: () {
+        // Переход на главное меню
+        Navigator.pushReplacementNamed(
+          context,
+          GameRouter.initialRoute,
+        );
+      },
+      userName: userName,
+    ));
   }
 }

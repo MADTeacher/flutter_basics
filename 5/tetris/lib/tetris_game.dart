@@ -8,7 +8,9 @@ import 'package:tetris/src/game.dart';
 
 /// Имплементация игры Тетрис
 class TetrisGame extends StatefulWidget {
-  const TetrisGame({super.key});
+  const TetrisGame({super.key, required this.userName});
+
+  final String userName;
 
   @override
   State<TetrisGame> createState() => _TetrisGameState();
@@ -26,7 +28,10 @@ class _TetrisGameState extends State<TetrisGame> {
         Navigator.pushReplacementNamed(
           context,
           GameRouter.gameOverRoute,
-          arguments: scores,
+          arguments: {
+            'scores': scores,
+            'userName': widget.userName,
+          },
         );
       },
     );
@@ -35,6 +40,7 @@ class _TetrisGameState extends State<TetrisGame> {
 
   @override
   Widget build(BuildContext context) {
+    final userName = ModalRoute.of(context)?.settings.arguments;
     // Добавляем слушателя для обновления состояния виджета
     return ListenableBuilder(
       // Передаем игру в качестве объекта, реализующего Listenable
@@ -73,6 +79,8 @@ class _TetrisGameState extends State<TetrisGame> {
                     ),
                     // Отображение текущего счета
                     Text('Очки: ${game.score}', style: TextStyle(fontSize: 24)),
+                    // Отображение имени игрока
+                    Text('Игрок: $userName', style: TextStyle(fontSize: 24)),
                   ],
                 );
               },

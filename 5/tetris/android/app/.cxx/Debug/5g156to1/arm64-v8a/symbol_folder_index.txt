@@ -1,0 +1,1 @@
+C:\Users\dev\projects\flutter_basics\5\tetris\build\app\intermediates\cxx\Debug\5g156to1\obj\arm64-v8a

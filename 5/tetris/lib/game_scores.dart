@@ -7,11 +7,17 @@ class GameScores extends StatelessWidget {
   final int score;
   // Обработчик события перезапуска игры
   final VoidCallback onRestart;
+  // Обработчик события перехода в главное меню
+  final VoidCallback onMainMenu;
+  // Имя пользователя
+  final String userName;
 
   const GameScores({
     super.key,
     required this.score,
     required this.onRestart,
+    required this.onMainMenu,
+    required this.userName,
   });
 
   @override
@@ -22,13 +28,18 @@ class GameScores extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Заработанные очки: $score',
+              'Игрок: $userName\nЗаработанные очки : $score',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: onRestart,
               child: Text('Перезапустить игру'),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: onMainMenu,
+              child: Text('В главное меню'),
             ),
           ],
         ),

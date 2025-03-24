@@ -9,12 +9,24 @@ class MainMenuScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Center(
-      child: ElevatedButton(
-          onPressed: () {
-            // Переход на экран игры
-            Navigator.pushReplacementNamed(context, GameRouter.gameRoute);
-          },
-          child: Text('Начать игру')),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ElevatedButton(
+              onPressed: () {
+                // Переход на экран ввода имени игрока
+                Navigator.pushReplacementNamed(context, GameRouter.userRoute);
+              },
+              child: Text('Начать игру')),
+          SizedBox(height: 16),
+          ElevatedButton(
+              onPressed: () {
+                // Переход на экран ввода имени игрока
+                Navigator.pushNamed(context, GameRouter.scoresRoute);
+              },
+              child: Text('Лучшие результаты')),
+        ],
+      ),
     ));
   }
 }
