@@ -41,7 +41,7 @@ Future<Response> _post(RequestContext context) async {
     final body = await context.request.json() as Map<String, dynamic>;
     final username = body['username'];
 
-    final user = await resultsRepository.createUser(username);
+    final user = await resultsRepository.getOrCreateUser(username);
     return Response.json(body: user);
   } catch (e, st) {
     talker.handle(e, st);
