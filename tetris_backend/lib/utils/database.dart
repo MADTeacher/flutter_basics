@@ -8,20 +8,14 @@ part 'database.g.dart';
 @DataClassName('UserDto')
 class Users extends Table {
   IntColumn get id => integer().autoIncrement()();
-  TextColumn get nickname => text().withLength(min: 1, max: 50)();
-}
-
-// Определяем таблицу результатов игр
-@DataClassName('GameScoreDto')
-class GameScores extends Table {
-  IntColumn get id => integer().autoIncrement()();
-  IntColumn get userId => integer()();
-  IntColumn get score => integer()();
+  IntColumn get score => integer().nullable()();
+  TextColumn get username => text().withLength(min: 1, max: 50)();
   DateTimeColumn get createdAt => dateTime().withDefault(currentDateAndTime)();
+  DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
 }
 
 // Определяем базу данных
-@DriftDatabase(tables: [Users, GameScores])
+@DriftDatabase(tables: [Users])
 class Database extends _$Database {
   Database() : super(_openConnection());
 
