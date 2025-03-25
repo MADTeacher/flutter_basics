@@ -34,7 +34,9 @@ class UsersRepository {
   }
 
   Future<List<User>> getUsers() async {
-    final res = await db.select(db.users).get();
+    final res = await (db.select(db.users)
+          ..orderBy([(tbl) => OrderingTerm.desc(tbl.score)]))
+        .get();
     return res.map((e) => User.fromDto(e)).toList();
   }
 
