@@ -27,14 +27,11 @@ final class UserRepository implements IUserRepository {
     }
 
     // Декодирование данных
-    final data = json.decode(response.body);
+    final responseBody = await response.transform(utf8.decoder).join();
+    final data = json.decode(responseBody);
 
     // Преобразование данных в список сущностей
-    final userEntity = UserDto.fromJson({
-      'id': data['id'],
-      'username': data['username'],
-      'score': data['score'] ?? 0,
-    }).toEntity();
+    final userEntity = UserDto.fromJson(data).toEntity();
 
     return userEntity;
   }
@@ -56,15 +53,11 @@ final class UserRepository implements IUserRepository {
     }
 
     // Декодирование данных
-    final data = json.decode(response.body);
+    final responseBody = await response.transform(utf8.decoder).join();
+    final data = json.decode(responseBody);
 
     // Преобразование данных в список сущностей
-    final userEntity = UserDto.fromJson({
-      'id': data['id'],
-      'username': data['username'],
-      'score': data['score'] ?? 0,
-    }).toEntity();
-
+    final userEntity = UserDto.fromJson(data).toEntity();
     return userEntity;
   }
 }

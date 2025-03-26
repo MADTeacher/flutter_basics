@@ -1,7 +1,7 @@
-import 'package:http/http.dart';
+import 'dart:io';
 
 abstract interface class IHttpClient {
-  Future<Response> post(String url, {Object? body});
-  Future<Response> get(String url);
-  Future<Response> put(String url, {Object? body});
+  Future<HttpClientResponse> post(String url, {Object? body});
+  Future<HttpClientResponse> get(String url);
+  Future<HttpClientResponse> put(String url, {Object? body});
 }

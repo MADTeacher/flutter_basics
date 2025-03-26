@@ -26,7 +26,8 @@ final class LeaderboardRepository implements ILeaderboardRepository {
     }
 
     // Декодирование данных
-    final Iterable data = json.decode(response.body);
+    final responseBody = await response.transform(utf8.decoder).join();
+    final Iterable data = json.decode(responseBody);
 
     // Преобразование данных в список сущностей
     final resList = data.map((item) {

@@ -16,7 +16,7 @@ final class UserDto {
     return UserDto(
       id: json['id'] as int,
       username: json['username'] as String,
-      score: json['score'] as int,
+      score: json['score'] ?? 0,
     );
   }
 
