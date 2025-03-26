@@ -11,6 +11,8 @@ class UserBloc {
       ValueNotifier(UserBlocInit());
 
   Future<void> createUser(String username) async {
+    if (stateNotifier.value is UserBlocLoading) return;
+
     try {
       emit(UserBlocLoading());
       final entity = await repository.createUser(username);
@@ -22,6 +24,8 @@ class UserBloc {
   }
 
   Future<void> setScores(String username, int scores) async {
+    if (stateNotifier.value is UserBlocLoading) return;
+
     try {
       emit(UserBlocLoading());
       final entity = await repository.setScores(username, scores);
@@ -33,6 +37,10 @@ class UserBloc {
         stackTrace: stackTrace,
       ));
     }
+  }
+
+  void signOut() {
+    emit(UserBlocInit());
   }
 
   /// Установка текущего состояния

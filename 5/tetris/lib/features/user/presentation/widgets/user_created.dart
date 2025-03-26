@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tetris/app/context_ext.dart';
 import 'package:tetris/features/user/domain/entity/user_entity.dart';
 import 'package:tetris/main.dart';
 
@@ -24,6 +25,13 @@ class UserCreated extends StatelessWidget {
             Navigator.pushReplacementNamed(context, GameRouter.gameRoute);
           },
           child: Text('Начать игру'),
+        ),
+        SizedBox(height: 16),
+        ElevatedButton(
+          onPressed: () {
+            context.userBloc.signOut();
+          },
+          child: Text('Выйти из аккаунта'),
         ),
       ],
     );
