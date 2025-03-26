@@ -23,6 +23,7 @@ final class UserBlocLoading extends UserBlocState {
 
 /// Состояние успешной загрузки
 final class UserBlocSuccess extends UserBlocState {
+  @override
   UserBlocSuccess(super.user);
 }
 
