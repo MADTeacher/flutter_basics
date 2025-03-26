@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tetris/game_scores.dart';
+import 'package:tetris/features/game/game_scores.dart';
 import 'package:tetris/main.dart';
 
 ///  Экран окончания игры

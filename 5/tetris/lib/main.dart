@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tetris/screens/game_over_screen.dart';
-import 'package:tetris/screens/game_screen.dart';
-import 'package:tetris/screens/main_menu_screen.dart';
-import 'package:tetris/screens/score_screen.dart';
-import 'package:tetris/screens/user_screen.dart';
+import 'package:tetris/di_container.dart';
+import 'package:tetris/features/game/game_over_screen.dart';
+import 'package:tetris/features/game/game_screen.dart';
+import 'package:tetris/features/main_menu/main_menu_screen.dart';
+import 'package:tetris/features/board/board_screen.dart';
+import 'package:tetris/features/user/user_screen.dart';
 
 part 'game_router.dart';
 
@@ -11,14 +12,22 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return DiContainer(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: GameRouter.initialRoute,
-        routes: GameRouter._appRoutes);
+        routes: GameRouter._appRoutes,
+      ),
+    );
   }
 }

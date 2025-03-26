@@ -25,3 +25,7 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+
+5/tetris/android/app/.cxx/
+5/tetris/windows/flutter/
+5/tetris/android/app/.cxx/Debug/

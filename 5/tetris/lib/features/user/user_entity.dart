@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/foundation.dart';
 
 /// Сущность пользователя
@@ -14,17 +15,6 @@ class UserEntity {
     required this.scores,
   });
 
-  /// Копирование объекта
-  UserEntity copyWith({
-    String? username,
-    String? scores,
-  }) {
-    return UserEntity(
-      username: username ?? this.username,
-      scores: scores ?? this.scores,
-    );
-  }
-
   /// Правильное сравнение объектов
   @override
   bool operator ==(Object other) {
@@ -38,4 +28,12 @@ class UserEntity {
   /// Хэш-код объекта
   @override
   int get hashCode => username.hashCode ^ scores.hashCode;
+
+  /// Создание объекта из строки
+  factory UserEntity.fromJson(Map<String, dynamic> json) {
+    return UserEntity(
+      username: json['username'].toString(),
+      scores: json['scores'].toString(),
+    );
+  }
 }

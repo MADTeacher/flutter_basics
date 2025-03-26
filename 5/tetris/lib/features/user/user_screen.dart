@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tetris/main.dart';
+import 'package:tetris/di_container.dart';
+import 'package:tetris/features/user/user_entity.dart';
 
 /// Экран игры
 class UserScreen extends StatefulWidget {
@@ -10,7 +11,14 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
-  final TextEditingController _controller = TextEditingController();
+  late final TextEditingController _controller;
+  late final Future<UserEntity> _futureUser;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,19 +41,23 @@ class _UserScreenState extends State<UserScreen> {
             SizedBox(height: 16),
             ElevatedButton(
                 onPressed: () {
-                  if(_controller.text.isEmpty) {
+                  if (_controller.text.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text('Введите ваш никнейм'),
                       ),
-                    ); 
+                    );
                     return;
                   }
+                  final container = DiContainer.of(context);
+                  _futureUser = container.userApi.createUser(
+                    scores: '0',
+                    username: _controller.text,
+                  );
+
                   // Переход на экран игры
-                  Navigator.pushReplacementNamed(context, GameRouter.gameRoute,
-                      arguments: _controller.text);
                 },
-                child: Text('Играть')),
+                child: Text('Играть'))
           ],
         ),
       ),

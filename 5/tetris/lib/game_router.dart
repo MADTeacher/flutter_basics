@@ -29,6 +29,6 @@ abstract final class GameRouter {
     // Экран пользователя
     userRoute: (_) => const UserScreen(),
     // Экран рекордов
-    scoresRoute: (_) => const ScoresScreen(),
+    scoresRoute: (_) => const BoardScreen(),
   };
 }

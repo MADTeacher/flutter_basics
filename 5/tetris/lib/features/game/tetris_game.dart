@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tetris/main.dart';
-import 'package:tetris/src/board.dart';
-import 'package:tetris/src/game.dart';
+import 'package:tetris/features/game/src/board.dart';
+import 'package:tetris/features/game/src/game.dart';
 
 /// Имплементация игры Тетрис
 class TetrisGame extends StatefulWidget {

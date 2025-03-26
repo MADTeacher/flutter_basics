@@ -4,10 +4,9 @@ Content-Type: application/json
 
 
 ### Создать пользователя
-POST http://localhost:8080/games/scores/
+POST http://localhost:8080/users
 Content-Type: application/json
 
 {
-    "nickname": "tester5",
-    "score": 1200
+    "nickname": "tester5"
 }
