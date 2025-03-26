@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:tetris/di_container.dart';
-import 'package:tetris/features/board/board_entity.dart';
+import 'package:tetris/app/di_container.dart';
+import 'package:tetris/features/leaderboard/domain/entity/leaderboard_entity.dart';
 
 /// Экран лучших результатов
-class BoardScreen extends StatefulWidget {
-  const BoardScreen({super.key});
+class LeaderboardScreen extends StatefulWidget {
+  const LeaderboardScreen({super.key});
 
   @override
-  State<BoardScreen> createState() => _BoardScreenState();
+  State<LeaderboardScreen> createState() => _LeaderboardScreenState();
 }
 
-class _BoardScreenState extends State<BoardScreen> {
-  late final Future<List<BoardEntity>> _futureListUsers;
+class _LeaderboardScreenState extends State<LeaderboardScreen> {
+  late final Future<Iterable<Object>> _futureListUsers;
 
   @override
   void initState() {
     super.initState();
     final diContainer = DiContainer.of(context);
-    _futureListUsers = diContainer.boardApi.fetchUsers();
+    _futureListUsers = diContainer.leaderboardBloc.fetchLeaderboard();
   }
 
   @override
@@ -36,15 +36,15 @@ class _BoardScreenState extends State<BoardScreen> {
                   child: Text('Ошибка: ${snapshot.error}'),
                 );
               } else {
-                final List<BoardEntity> users =
-                    snapshot.data as List<BoardEntity>;
+                final List<LeaderboardEntity> users =
+                    snapshot.data as List<LeaderboardEntity>;
                 return ListView.builder(
                   itemCount: users.length,
                   itemBuilder: (context, index) {
-                    final BoardEntity user = users[index];
+                    final LeaderboardEntity item = users[index];
                     return ListTile(
-                      title: Text(user.username),
-                      subtitle: Text('Очки: ${user.scores}'),
+                      title: Text(item.username),
+                      subtitle: Text('Очки: ${item.score}'),
                     );
                   },
                 );

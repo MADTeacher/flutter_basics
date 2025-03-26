@@ -22,7 +22,7 @@ class MainMenuScreen extends StatelessWidget {
           ElevatedButton(
               onPressed: () {
                 // Переход на экран ввода имени игрока
-                Navigator.pushNamed(context, GameRouter.scoresRoute);
+                Navigator.pushNamed(context, GameRouter.leaderboardRoute);
               },
               child: Text('Лучшие результаты')),
         ],

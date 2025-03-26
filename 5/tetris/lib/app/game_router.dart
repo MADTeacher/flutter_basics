@@ -1,4 +1,4 @@
-part of 'main.dart';
+part of '../main.dart';
 
 //  Роутер игры.
 abstract final class GameRouter {
@@ -15,9 +15,9 @@ abstract final class GameRouter {
   static const String userRoute = '/user';
 
   // Маршрут рекордов
-  static const String scoresRoute = '/scores';
+  static const String leaderboardRoute = '/leaderboard';
 
-  // Маршруты приложения. Объявляются приватными, чтобы 
+  // Маршруты приложения. Объявляются приватными, чтобы
   // исключить к ним доступ вне навигатора
   static final Map<String, WidgetBuilder> _appRoutes = {
     // Рутовый экран - главное меню
@@ -29,6 +29,6 @@ abstract final class GameRouter {
     // Экран пользователя
     userRoute: (_) => const UserScreen(),
     // Экран рекордов
-    scoresRoute: (_) => const BoardScreen(),
+    leaderboardRoute: (_) => const LeaderboardScreen(),
   };
 }

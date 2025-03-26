@@ -13,4 +13,9 @@ class MyHttpClient implements IHttpClient {
   Future<http.Response> post(String path, {Object? body}) {
     return http.post(Uri.parse('$baseUrl$path'), body: body);
   }
+
+  @override
+  Future<http.Response> put(String path, {Object? body}) {
+    return http.put(Uri.parse('$baseUrl$path'), body: body);
+  }
 }
