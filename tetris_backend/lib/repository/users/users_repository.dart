@@ -7,44 +7,28 @@ class UsersRepository {
 
   final Database db;
 
-  Future<User> createUser(String username) async {
+  Future<User> createUser(String nickname) async {
     final dbUser = await db.into(db.users).insertReturning(
-          UsersCompanion(username: Value(username)),
+          UsersCompanion(nickname: Value(nickname)),
         );
     return User.fromDto(dbUser);
   }
 
-  Future<User> setScore(String username, int score) async {
-    final updatedUser = await (db.update(db.users)
-          ..where((tbl) => tbl.username.equals(username)))
-        .writeReturning(
-      UsersCompanion(score: Value(score), updatedAt: Value(DateTime.now())),
-    );
-    return User.fromDto(updatedUser.first);
-  }
-
-  Future<User> getUser(String username) async {
+  Future<User> getUser(String nickname) async {
     final res = await (db.select(db.users)
-          ..where((tbl) => tbl.username.equals(username)))
+          ..where((tbl) => tbl.nickname.equals(nickname)))
         .get();
     if (res.isEmpty) {
-      throw NotExistsException('User with id $username not found');
+      throw NotExistsException('User with id $nickname not found');
     }
     return User.fromDto(res.first);
   }
 
-  Future<List<User>> getUsers() async {
-    final res = await (db.select(db.users)
-          ..orderBy([(tbl) => OrderingTerm.desc(tbl.score)]))
-        .get();
-    return res.map((e) => User.fromDto(e)).toList();
-  }
-
-  Future<User> getOrCreateUser(String username) async {
+  Future<User> getOrCreateUser(String nickname) async {
     try {
-      return await getUser(username);
+      return await getUser(nickname);
     } on NotExistsException {
-      return createUser(username);
+      return createUser(nickname);
     }
   }
 }
