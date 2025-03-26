@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tetris/app/context_ext.dart';
 
 // Виджет для отображения количества набранных очков
 // и кнопки для перезапуска игры после завершения игры
@@ -9,19 +10,17 @@ class GameScores extends StatelessWidget {
   final VoidCallback onRestart;
   // Обработчик события перехода в главное меню
   final VoidCallback onMainMenu;
-  // Имя пользователя
-  final String userName;
 
   const GameScores({
     super.key,
     required this.score,
     required this.onRestart,
     required this.onMainMenu,
-    required this.userName,
   });
 
   @override
   Widget build(BuildContext context) {
+    final userName = context.user?.username;
     return Scaffold(
       body: Center(
         child: Column(

@@ -2,15 +2,14 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tetris/main.dart';
+import 'package:tetris/app/context_ext.dart';
 import 'package:tetris/features/game/src/board.dart';
 import 'package:tetris/features/game/src/game.dart';
+import 'package:tetris/main.dart';
 
 /// Имплементация игры Тетрис
 class TetrisGame extends StatefulWidget {
-  const TetrisGame({super.key, required this.userName});
-
-  final String userName;
+  const TetrisGame({super.key});
 
   @override
   State<TetrisGame> createState() => _TetrisGameState();
@@ -30,9 +29,9 @@ class _TetrisGameState extends State<TetrisGame> {
           GameRouter.gameOverRoute,
           arguments: {
             'scores': scores,
-            'userName': widget.userName,
           },
         );
+        context.userBloc.setScores(context.user?.username ?? 'Аноним', scores);
       },
     );
     game.start();
@@ -40,7 +39,7 @@ class _TetrisGameState extends State<TetrisGame> {
 
   @override
   Widget build(BuildContext context) {
-    final userName = ModalRoute.of(context)?.settings.arguments;
+    final userName = context.user?.username;
     // Добавляем слушателя для обновления состояния виджета
     return ListenableBuilder(
       // Передаем игру в качестве объекта, реализующего Listenable

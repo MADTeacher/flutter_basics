@@ -42,7 +42,7 @@ final class UserRepository implements IUserRepository {
       '/users/scores/',
       body: json.encode({
         'username': username,
-        'scores': scores,
+        'score': scores,
       }),
     );
 

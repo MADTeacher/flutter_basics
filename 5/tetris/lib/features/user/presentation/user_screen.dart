@@ -31,12 +31,12 @@ class _UserScreenState extends State<UserScreen> {
         child: Center(
           child: ValueListenableBuilder(
             valueListenable: userCubit.stateNotifier,
-            builder: (context, value, child) {
-              return switch (value) {
+            builder: (context, state, child) {
+              return switch (state) {
                 UserBlocLoading() => CircularProgressIndicator(),
-                UserBlocSuccess() => UserCreated(userEntity: value.user!),
+                UserBlocSuccess() => UserCreated(userEntity: state.user!),
                 UserBlocError() => UserError(
-                    message: value.message,
+                    message: state.message,
                     username: _controller.text,
                   ),
                 _ => UsernameField(controller: _controller),

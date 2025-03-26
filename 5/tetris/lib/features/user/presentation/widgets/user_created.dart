@@ -17,6 +17,8 @@ class UserCreated extends StatelessWidget {
       children: [
         Text('Добро пожаловать, ${userEntity.username}!'),
         SizedBox(height: 16),
+        Text('Ваш лучший результат: ${userEntity.score}'),
+        SizedBox(height: 16),
         ElevatedButton(
           onPressed: () {
             Navigator.pushReplacementNamed(context, GameRouter.gameRoute);

@@ -7,11 +7,6 @@ class GameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userName = ModalRoute.of(context)?.settings.arguments.toString() ??
-        "Неизвестный игрок";
-    return Scaffold(
-        body: TetrisGame(
-      userName: userName,
-    ));
+    return Scaffold(body: TetrisGame());
   }
 }
