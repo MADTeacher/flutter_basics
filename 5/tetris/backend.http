@@ -1,12 +1,21 @@
 ### Запросить все очки
-GET http://localhost:8080/games/scores/
+GET http://localhost:8080/users/
 Content-Type: application/json
 
 
 ### Создать пользователя
-POST http://localhost:8080/users
+POST http://localhost:8080/users/
 Content-Type: application/json
 
 {
-    "nickname": "tester5"
+    "username": "tester113"
+}
+
+### Обновить очки пользователя
+PUT http://localhost:8080/users/scores/
+Content-Type: application/json
+
+{
+    "username": "tester11",
+    "score": 150
 }
