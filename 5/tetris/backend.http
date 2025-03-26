@@ -8,7 +8,7 @@ POST http://localhost:8080/users/
 Content-Type: application/json
 
 {
-    "username": "tester113"
+    "username": "yura"
 }
 
 ### Обновить очки пользователя
@@ -16,6 +16,6 @@ PUT http://localhost:8080/users/scores/
 Content-Type: application/json
 
 {
-    "username": "tester11",
+    "username": "yura",
     "score": 150
 }
