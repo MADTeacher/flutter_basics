@@ -29,41 +29,45 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Получаем состояние кубита через ValueListenableBuilder
-    final state = leaderboardCubit.stateNotifier.value;
     // Используем ValueListenableBuilder
     // для отслеживания изменений состояния
     // и перестраиваем виджет при изменении состояния кубита
-    return ValueListenableBuilder(
-      valueListenable: leaderboardCubit.stateNotifier,
-      builder: (context, value, child) => switch (state) {
-        // Инициализация состояния
-        LeaderboardInitState() => const Center(child: Text('Инициализация...')),
-        // Загрузка состояния
-        // Здесь можно добавить анимацию загрузки или что-то подобное
-        LeaderboardLoading() =>
-          const Center(child: CircularProgressIndicator()),
-        // Успешное состояние
-        // Здесь отображаем таблицу лидеров
-        LeaderboardSuccessState() => ListView.builder(
-            itemCount: state.leaderboard.length,
-            itemBuilder: (context, index) {
-              final LeaderboardEntity item = state.leaderboard[index];
-              return ListTile(
-                title: Text(item.username),
-                subtitle: Text('Очки: ${item.score}'),
-              );
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Таблица лидеров'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () {
+              // Обновляем таблицу лидеров при нажатии на кнопку
+              leaderboardCubit.fetchLeaderboard();
             },
           ),
-        // Ошибка состояния
-        // Здесь можно добавить обработку ошибок
-        LeaderboardErrorState() => Center(
-            child: Text(
-              'Ошибка: ${state.message}',
-              style: const TextStyle(color: Colors.red),
+        ],
+      ),
+      body: ValueListenableBuilder(
+        valueListenable: leaderboardCubit.stateNotifier,
+        builder: (context, state, child) => switch (state) {
+          // Инициализация состояния
+          LeaderboardInitState() =>
+            const Center(child: Text('Инициализация...')),
+          // Загрузка состояния
+          // Здесь можно добавить анимацию загрузки или что-то подобное
+          LeaderboardLoading() =>
+            const Center(child: CircularProgressIndicator()),
+          // Успешное состояние
+          // Здесь отображаем таблицу лидеров
+          LeaderboardSuccessState() => _ListRecords(state.leaderboard),
+          // Ошибка состояния
+          // Здесь можно добавить обработку ошибок
+          LeaderboardErrorState() => Center(
+              child: Text(
+                'Ошибка: ${state.message}',
+                style: const TextStyle(color: Colors.red),
+              ),
             ),
-          ),
-      },
+        },
+      ),
     );
   }
 
@@ -73,5 +77,31 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
     // освобождаем ресурсы кубита
     leaderboardCubit.dispose();
     super.dispose();
+  }
+}
+
+/// Виджет для отображения списка записей таблицы лидеров
+class _ListRecords extends StatelessWidget {
+  const _ListRecords(this.leaderboard);
+
+  final List<LeaderboardEntity> leaderboard;
+
+  @override
+  Widget build(BuildContext context) {
+    // Проверяем, есть ли записи в таблице лидеров
+    if (leaderboard.isEmpty) {
+      return const Center(child: Text('Нет записей в таблице лидеров'));
+    }
+
+    return ListView.builder(
+      itemCount: leaderboard.length,
+      itemBuilder: (context, index) {
+        final LeaderboardEntity item = leaderboard[index];
+        return ListTile(
+          title: Text(item.username),
+          subtitle: Text('Очки: ${item.score}'),
+        );
+      },
+    );
   }
 }

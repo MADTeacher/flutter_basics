@@ -22,8 +22,14 @@ class LeaderboardCubit {
 
   /// Получение таблицы лидеров
   Future<void> fetchLeaderboard() async {
-    emit(const LeaderboardLoading());
+    // Проверяем текущее состояние
+    // Если состояние уже загрузки, то ничего не делаем
+    if (stateNotifier.value is LeaderboardLoading) {
+      return;
+    }
+
     try {
+      emit(const LeaderboardLoading());
       final leaderboard = await repository.fetchLeaderboard();
       emit(LeaderboardSuccessState(leaderboard.toList()));
     } on Object catch (e, stackTrace) {
