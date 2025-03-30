@@ -3,10 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tetris/app/context_ext.dart';
-import 'package:tetris/features/user/domain/state/user_state.dart';
-import 'package:tetris/main.dart';
+import 'package:tetris/app/utils.dart';
 import 'package:tetris/features/game/src/board.dart';
 import 'package:tetris/features/game/src/game.dart';
+import 'package:tetris/main.dart';
 
 /// Имплементация игры Тетрис
 class TetrisGame extends StatefulWidget {
@@ -29,6 +29,10 @@ class _TetrisGameState extends State<TetrisGame> {
           context,
           GameRouter.gameOverRoute,
           arguments: scores,
+        );
+        context.di.userCubit.setScores(
+          Utils.getUsername(context),
+          int.tryParse(scores.toString()) ?? 0,
         );
       },
     );
@@ -75,7 +79,7 @@ class _TetrisGameState extends State<TetrisGame> {
                     ),
                     // Отображение текущего счета
                     Text('Очки: ${game.score}', style: TextStyle(fontSize: 24)),
-                    Text('Играет: ${_getUsername(context)}',
+                    Text('Играет: ${Utils.getUsername(context)}',
                         style: TextStyle(fontSize: 24)),
                   ],
                 );
@@ -85,21 +89,6 @@ class _TetrisGameState extends State<TetrisGame> {
         );
       },
     );
-  }
-
-  // Получаем имя пользователя из состояния кубита
-  // Если состояние кубита - успешная загрузка,
-  // то возвращаем имя пользователя
-  // Если любое другое состояние, то возвращаем 'Гость'
-  String _getUsername(
-    BuildContext context,
-  ) {
-    final state = context.di.userCubit.stateNotifier.value;
-    if (state is UserBlocSuccess) {
-      return state.userEntity.username;
-    } else {
-      return 'Гость';
-    }
   }
 }
 
