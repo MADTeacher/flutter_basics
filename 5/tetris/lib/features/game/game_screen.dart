@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tetris/tetris_game.dart';
+import 'package:tetris/features/game/tetris_game.dart';
 
 /// Экран игры
 class GameScreen extends StatelessWidget {

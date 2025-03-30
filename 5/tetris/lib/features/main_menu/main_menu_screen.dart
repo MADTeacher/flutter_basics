@@ -14,8 +14,8 @@ class MainMenuScreen extends StatelessWidget {
         children: [
           ElevatedButton(
               onPressed: () {
-                // Переход на экран игры
-                Navigator.pushReplacementNamed(context, GameRouter.gameRoute);
+                // Переход на экран создания пользователя
+                Navigator.pushReplacementNamed(context, GameRouter.userRoute);
               },
               child: Text('Начать игру')),
           SizedBox(height: 16),

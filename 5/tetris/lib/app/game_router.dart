@@ -14,6 +14,9 @@ abstract final class GameRouter {
   // Маршрут таблицы лучших результатов
   static const String leaderboardRoute = '/leaderboard';
 
+  // Маршрут пользователя
+  static const String userRoute = '/user';
+
   // Маршруты приложения. Объявляются приватными, чтобы
   // исключить к ним доступ вне навигатора
   static final Map<String, WidgetBuilder> _appRoutes = {
@@ -25,5 +28,7 @@ abstract final class GameRouter {
     gameOverRoute: (_) => const GameOverScreen(),
     // Экран таблицы лучших результатов
     leaderboardRoute: (_) => const LeaderboardScreen(),
+    // Экран пользователя
+    userRoute: (_) => const UserScreen(),
   };
 }
