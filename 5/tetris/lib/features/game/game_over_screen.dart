@@ -10,7 +10,12 @@ class GameOverScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Получаем заработанные очки, переданные в маршрут
+    final args = ModalRoute.of(context)?.settings.arguments;
+    final scores = int.tryParse(args.toString()) ?? 0;
+
     return Scaffold(
+
         /// Слушатель состояния кубита пользователя
         /// и отображение соответствующего виджета
         /// в зависимости от состояния
@@ -19,8 +24,9 @@ class GameOverScreen extends StatelessWidget {
         return switch (state) {
           UserLoadingState() => CircularProgressIndicator(),
           UserSuccessState() => GameScores(
-              score: state.userEntity.score,
+              score: scores,
               onRestart: () {
+                context.di.userCubit.setScores(state.userEntity.username, scores);
                 Navigator.pushReplacementNamed(context, GameRouter.gameRoute);
               }),
           _ => SizedBox.shrink(),
