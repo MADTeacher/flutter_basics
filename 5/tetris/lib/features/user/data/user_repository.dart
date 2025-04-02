@@ -14,47 +14,32 @@ final class UserRepository implements IUserRepository {
   @override
   Future<UserEntity> createUser(String username) async {
     // Получение данных
-    final response = await httpClient.post('/users/',
-        body: json.encode({'username': username}));
-
+    final response =
+        await httpClient.post('/users/', body: {"username": username});
     // Проверка статуса ответа
     if (response.statusCode != 200) {
       throw Exception(
           'Ошибка при создании пользователя: ${response.statusCode}');
     }
-
-    // Декодирование данных
-    final responseBody = await response.transform(utf8.decoder).join();
-    final data = json.decode(responseBody);
-
     // Преобразование данных в список сущностей
-    final userEntity = UserDto.fromJson(data).toEntity();
-
-    return userEntity;
+    return UserDto.fromJson(json.decode(response.body)).toEntity();
   }
 
   @override
   Future<UserEntity> setScores(String username, int scores) async {
     final response = await httpClient.put(
       '/users/scores/',
-      body: json.encode({
+      body: {
         'username': username,
         'score': scores,
-      }),
+      },
     );
-
     // Проверка статуса ответа
     if (response.statusCode != 200) {
       throw Exception(
           'Ошибка при обновлении пользователя: ${response.statusCode}');
     }
-
-    // Декодирование данных
-    final responseBody = await response.transform(utf8.decoder).join();
-    final data = json.decode(responseBody);
-
     // Преобразование данных в список сущностей
-    final userEntity = UserDto.fromJson(data).toEntity();
-    return userEntity;
+    return UserDto.fromJson(json.decode(response.body)).toEntity();
   }
 }

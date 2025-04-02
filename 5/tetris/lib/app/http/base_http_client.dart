@@ -1,51 +1,51 @@
+import 'dart:convert';
 import 'dart:io';
+
+import 'package:http/http.dart' as http;
+import 'package:flutter/foundation.dart';
+
 import 'i_http_client.dart';
 
 /// Базовая реализация интерфейса IHttpClient для отправки HTTP запросов
 class BaseHttpClient implements IHttpClient {
+  /// Определяет хост в зависимости от платформы
+  /// Так как на Android эмулятор работает
+  /// на localhost
+  String get host {
+    if (kIsWeb) {
+      return 'localhost';
+    } else if (Platform.isAndroid) {
+      return '10.0.2.2';
+    } else {
+      return 'localhost';
+    }
+  }
+
   /// Переопределяет базовый URL для запросов
-  /// В данном случае используется локальный сервер на порту 8080
-  /// Это может быть изменено на любой другой URL
   @override
-  final String baseUrl = 'http://localhost:8080';
+  String get baseUrl => 'http://$host:8080';
 
   /// Отправляет GET запрос на указанный путь
   @override
-  Future<HttpClientResponse> get(String path) async {
-    /// Создает URI из базового URL и указанного пути
+  Future<http.Response> get(String path) async {
     final uri = Uri.parse('$baseUrl$path');
-
-    /// Создает HTTP GET запрос
-    final request = await HttpClient().getUrl(uri);
-
-    /// Отправляет запрос и получает ответ
-    final response = await request.close();
-
-    /// Возвращает ответ от сервера
+    final response = await http.get(uri);
     return response;
   }
 
   @override
-  Future<HttpClientResponse> post(String path, {Object? body}) async {
+  Future<http.Response> post(String path, {Object? body}) async {
     final uri = Uri.parse('$baseUrl$path');
-    final request = await HttpClient().postUrl(uri);
-    if (body != null) {
-      request.headers.contentType = ContentType.json;
-      request.write(body);
-    }
-    final response = await request.close();
+    final response = await http.post(uri, body: jsonEncode(body));
+
     return response;
   }
 
   @override
-  Future<HttpClientResponse> put(String path, {Object? body}) async {
+  Future<http.Response> put(String path, {Object? body}) async {
     final uri = Uri.parse('$baseUrl$path');
-    final request = await HttpClient().putUrl(uri);
-    if (body != null) {
-      request.headers.contentType = ContentType.json;
-      request.write(body);
-    }
-    final response = await request.close();
+    final response = await http.put(uri, body: jsonEncode(body));
+
     return response;
   }
 }

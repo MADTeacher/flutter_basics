@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tetris/app/context_ext.dart';
 import 'package:tetris/app/utils.dart';
 import 'package:tetris/main.dart';
 import 'package:tetris/features/game/src/board.dart';
@@ -27,7 +28,10 @@ class _TetrisGameState extends State<TetrisGame> {
         Navigator.pushReplacementNamed(
           context,
           GameRouter.gameOverRoute,
-          arguments: scores,
+        );
+        context.di.userCubit.setScores(
+          Utils.getUsername(context),
+          int.tryParse(scores.toString()) ?? 0,
         );
       },
     );

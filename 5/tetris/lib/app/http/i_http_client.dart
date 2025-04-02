@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'package:http/http.dart';
 
 /// Интерфейс для HTTP клиента
 /// Используется для отправки запросов на сервер
@@ -7,11 +7,11 @@ abstract interface class IHttpClient {
   String get baseUrl;
   /// Отправляет POST запрос на указанный URL с телом запроса
   /// Возвращает ответ от сервера
-  Future<HttpClientResponse> post(String url, {Object? body});
+  Future<Response> post(String url, {Object? body});
   /// Отправляет GET запрос на указанный URL
   /// Возвращает ответ от сервера
-  Future<HttpClientResponse> get(String url);
+  Future<Response> get(String url);
   /// Отправляет PUT запрос на указанный URL с телом запроса
   /// Возвращает ответ от сервера
-  Future<HttpClientResponse> put(String url, {Object? body});
+  Future<Response> put(String url, {Object? body});
 }
