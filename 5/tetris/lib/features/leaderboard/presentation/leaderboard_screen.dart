@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tetris/app/context_ext.dart';
-import 'package:tetris/features/leaderboard/domain/leaderboard_entity.dart';
-import 'package:tetris/features/leaderboard/domain/state/state/leaderboard_cubit.dart';
-import 'package:tetris/features/leaderboard/domain/state/state/leaderboard_state.dart';
+
+import '../domain/leaderboard_entity.dart';
+import '../domain/state/leaderboard_cubit.dart';
+import '../domain/state/leaderboard_state.dart';
+
 
 /// Экран таблицы лидеров
 /// Здесь отображается таблица лидеров

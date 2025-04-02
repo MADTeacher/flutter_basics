@@ -1,11 +1,12 @@
 import 'package:flutter/widgets.dart';
-import 'package:tetris/app/http/base_http_client.dart';
-import 'package:tetris/app/http/i_http_client.dart';
-import 'package:tetris/features/leaderboard/data/leaderboard_repository.dart';
-import 'package:tetris/features/leaderboard/domain/i_leaderboard_repository.dart';
-import 'package:tetris/features/user/data/user_repository.dart';
-import 'package:tetris/features/user/domain/i_user_repository.dart';
-import 'package:tetris/features/user/domain/state/user_cubit.dart';
+
+import '../features/leaderboard/data/leaderboard_repository.dart';
+import '../features/leaderboard/domain/i_leaderboard_repository.dart';
+import '../features/user/data/user_repository.dart';
+import '../features/user/domain/i_user_repository.dart';
+import '../features/user/domain/state/user_cubit.dart';
+import 'http/base_http_client.dart';
+import 'http/i_http_client.dart';
 
 final class DiContainer extends InheritedWidget {
   DiContainer({super.key, required super.child}) {
@@ -33,8 +34,9 @@ final class DiContainer extends InheritedWidget {
   /// Менеджер состояния пользователя
   late final UserCubit userCubit;
 
-  /// Возвращаем false, чтобы виджеты-потомки не перестраивались при изменении контекста
-  /// Так как контейнер зависимостей нужен только для доступа к зависимостям
+  /// Так как контейнер зависимостей нужен только для доступа 
+  /// к зависимостям – возвращаем false, чтобы виджеты-потомки 
+  /// не перестраивались при изменении контекста 
   @override
   bool updateShouldNotify(covariant InheritedWidget oldWidget) => false;
 

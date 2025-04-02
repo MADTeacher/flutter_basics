@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:tetris/app/http/i_http_client.dart';
+import 'i_http_client.dart';
 
 /// Базовая реализация интерфейса IHttpClient для отправки HTTP запросов
 class BaseHttpClient implements IHttpClient {
@@ -14,10 +14,13 @@ class BaseHttpClient implements IHttpClient {
   Future<HttpClientResponse> get(String path) async {
     /// Создает URI из базового URL и указанного пути
     final uri = Uri.parse('$baseUrl$path');
+
     /// Создает HTTP GET запрос
     final request = await HttpClient().getUrl(uri);
+
     /// Отправляет запрос и получает ответ
     final response = await request.close();
+
     /// Возвращает ответ от сервера
     return response;
   }

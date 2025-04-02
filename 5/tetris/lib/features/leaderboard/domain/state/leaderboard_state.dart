@@ -1,5 +1,6 @@
 import 'package:tetris/app/equals_mixin.dart';
-import 'package:tetris/features/leaderboard/domain/leaderboard_entity.dart';
+
+import '../leaderboard_entity.dart';
 
 /// Состояние блока
 sealed class LeaderboardState with EqualsMixin {

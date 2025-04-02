@@ -1,11 +1,12 @@
 import 'dart:convert';
 
 import 'package:tetris/app/http/i_http_client.dart';
-import 'package:tetris/features/leaderboard/data/leaderboard_dto.dart';
-import 'package:tetris/features/leaderboard/domain/i_leaderboard_repository.dart';
-import 'package:tetris/features/leaderboard/domain/leaderboard_entity.dart';
 
-///  Реализация репозитория для таблицы лидеров.
+import '../domain/i_leaderboard_repository.dart';
+import '../domain/leaderboard_entity.dart';
+import 'leaderboard_dto.dart';
+
+///  Реализация репозитория для таблицы лидеров
 final class LeaderboardRepository implements ILeaderboardRepository {
   /// HTTP клиент для отправки запросов к API
   final IHttpClient httpClient;
@@ -23,7 +24,11 @@ final class LeaderboardRepository implements ILeaderboardRepository {
     }
 
     // Декодирование данных
-    final responseBody = await response.transform(utf8.decoder).join();
+    final responseBody = await response
+        .transform(
+          utf8.decoder,
+        )
+        .join();
     final Iterable data = json.decode(responseBody);
 
     // Преобразование данных в список сущностей

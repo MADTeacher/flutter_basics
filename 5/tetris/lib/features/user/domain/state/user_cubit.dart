@@ -1,35 +1,35 @@
 import 'package:flutter/foundation.dart';
-import 'package:tetris/features/user/domain/i_user_repository.dart';
-import 'package:tetris/features/user/domain/state/user_state.dart';
+import '../i_user_repository.dart';
+import 'user_state.dart';
 
 /// Класс для управления состоянием пользователя
-/// и взаимодействия с репозиторием пользователя
+/// и взаимодействия с удаленным репозиторием
 class UserCubit {
   final IUserRepository repository;
 
   UserCubit({required this.repository});
 
-  final ValueNotifier<UserBlocState> stateNotifier =
-      ValueNotifier(UserBlocInit());
+  final ValueNotifier<UserState> stateNotifier =
+      ValueNotifier(UserInitState());
 
   Future<void> createUser(String username) async {
     // Проверка состояния, если состояние загрузки, то не выполнять запрос
     // и не перезаписывать состояние
-    if (stateNotifier.value is UserBlocLoading) return;
+    if (stateNotifier.value is UserLoadingState) return;
 
     try {
       // Установка состояния загрузки
-      emit(UserBlocLoading());
+      emit(UserLoadingState());
       // Создание пользователя
       // Если пользователь с таким именем уже существует,
       final entity = await repository.createUser(username);
       // Установка состояния успешной загрузки
       // и передача сущности пользователя
-      emit(UserBlocSuccess(entity));
+      emit(UserSuccessState(entity));
     } on Object catch (error, stackTrace) {
       // Установка состояния ошибки
       // и передача сообщения об ошибке
-      emit(UserBlocError('Ошибка создания пользователя',
+      emit(UserErrorState('Ошибка создания пользователя',
           error: error, stackTrace: stackTrace));
     }
   }
@@ -38,14 +38,14 @@ class UserCubit {
   /// [username] - имя пользователя
   /// [scores] - счет пользователя
   Future<void> setScores(String username, int scores) async {
-    if (stateNotifier.value is UserBlocLoading) return;
+    if (stateNotifier.value is UserLoadingState) return;
 
     try {
-      emit(UserBlocLoading());
+      emit(UserLoadingState());
       final entity = await repository.setScores(username, scores);
-      emit(UserBlocSuccess(entity));
+      emit(UserSuccessState(entity));
     } on Object catch (error, stackTrace) {
-      emit(UserBlocError(
+      emit(UserErrorState(
         'Ошибка обновления результата пользователя',
         error: error,
         stackTrace: stackTrace,
@@ -56,18 +56,18 @@ class UserCubit {
   /// Выход из аккаунта
   /// Удаление текущего состояния
   void signOut() {
-    emit(UserBlocInit());
+    emit(UserInitState());
   }
 
   /// Сброс состояния кубита
   /// Пригодится для сброса состояния
   /// при повторном входе в аккаунт
   void reset() {
-    emit(UserBlocInit());
+    emit(UserInitState());
   }
 
   /// Установка текущего состояния
-  void emit(UserBlocState cubitState) {
+  void emit(UserState cubitState) {
     stateNotifier.value = cubitState;
   }
 }

@@ -1,4 +1,4 @@
-import 'package:tetris/features/user/domain/user_entity.dart';
+import '../domain/user_entity.dart';
 
 /// Data Transfer Object для парсинга данных пользователя
 final class UserDto {

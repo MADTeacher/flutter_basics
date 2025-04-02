@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
-import 'package:tetris/features/leaderboard/domain/i_leaderboard_repository.dart';
-import 'package:tetris/features/leaderboard/domain/state/state/leaderboard_state.dart';
 
-/// Класс для управления состоянием таблицы лидеров
-/// Использует паттерн Cubit для управления состоянием
-/// Состояние таблицы лидеров хранится в ValueNotifier
+import '../i_leaderboard_repository.dart';
+import 'leaderboard_state.dart';
+
+
+/// Класс, использующий паттерн Cubit для управления 
+/// состоянием таблицы лидеров. Сами состояния таблицы
+/// хранится в ValueNotifier
 class LeaderboardCubit {
   final ILeaderboardRepository repository;
 

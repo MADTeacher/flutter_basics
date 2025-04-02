@@ -1,41 +1,41 @@
 import 'package:tetris/app/equals_mixin.dart';
-import 'package:tetris/features/user/domain/user_entity.dart';
+import '../user_entity.dart';
 
 /// Состояние блока
-sealed class UserBlocState with EqualsMixin {
-  const UserBlocState();
+sealed class UserState with EqualsMixin {
+  const UserState();
 
   @override
   List<Object?> get fields => [];
 }
 
 /// Состояние инициализации
-final class UserBlocInit extends UserBlocState {
-  const UserBlocInit();
+final class UserInitState extends UserState {
+  const UserInitState();
 }
 
 /// Состояние загрузки
-final class UserBlocLoading extends UserBlocState {
-  const UserBlocLoading();
+final class UserLoadingState extends UserState {
+  const UserLoadingState();
 }
 
 /// Состояние успешной загрузки
-final class UserBlocSuccess extends UserBlocState {
+final class UserSuccessState extends UserState {
   final UserEntity userEntity;
 
-  const UserBlocSuccess(this.userEntity);
+  const UserSuccessState(this.userEntity);
 
   @override
   List<Object?> get fields => [userEntity];
 }
 
 /// Состояние ошибки
-final class UserBlocError extends UserBlocState {
+final class UserErrorState extends UserState {
   final String message;
   final Object error;
   final StackTrace? stackTrace;
 
-  const UserBlocError(
+  const UserErrorState(
     this.message, {
     required this.error,
     this.stackTrace,

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:tetris/features/leaderboard/domain/leaderboard_entity.dart';
+
+import '../domain/leaderboard_entity.dart';
 
 /// Data Transfer Object для лучших результатов
 @immutable

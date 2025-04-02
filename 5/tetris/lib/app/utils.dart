@@ -13,7 +13,7 @@ abstract class Utils {
     BuildContext context,
   ) {
     final state = context.di.userCubit.stateNotifier.value;
-    if (state is UserBlocSuccess) {
+    if (state is UserSuccessState) {
       return state.userEntity.username;
     } else {
       return 'Гость';

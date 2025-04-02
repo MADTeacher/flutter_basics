@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tetris/app/context_ext.dart';
 
 /// Поле для ввода имени пользователя 
-/// с кнопкой создания пользователя
+/// с кнопкой, запускающей процесс его создания
 class UsernameField extends StatelessWidget {
   const UsernameField({
     super.key,
@@ -39,8 +39,9 @@ class UsernameField extends StatelessWidget {
               return;
             }
 
-            /// Вызываем метод создания пользователя из кубита
-            /// Передаем никнейм из текстового поля (используя контроллер)
+            /// Вызываем метод создания пользователя из кубита и
+            /// передаем никнейм из текстового поля 
+            /// (используя контроллер)
             context.di.userCubit.createUser(_controller.text);
           },
           child: Text('Создать пользователя'),

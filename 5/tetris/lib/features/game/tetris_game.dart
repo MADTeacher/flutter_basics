@@ -2,11 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tetris/app/context_ext.dart';
 import 'package:tetris/app/utils.dart';
+import 'package:tetris/main.dart';
 import 'package:tetris/features/game/src/board.dart';
 import 'package:tetris/features/game/src/game.dart';
-import 'package:tetris/main.dart';
 
 /// Имплементация игры Тетрис
 class TetrisGame extends StatefulWidget {
@@ -29,10 +28,6 @@ class _TetrisGameState extends State<TetrisGame> {
           context,
           GameRouter.gameOverRoute,
           arguments: scores,
-        );
-        context.di.userCubit.setScores(
-          Utils.getUsername(context),
-          int.tryParse(scores.toString()) ?? 0,
         );
       },
     );
@@ -66,8 +61,10 @@ class _TetrisGameState extends State<TetrisGame> {
               builder: (context, constraints) {
                 final board = game.board.mainBoard;
                 // Вычисляем размер клетки поля
-                double blockSize = min(constraints.maxWidth / board[0].length,
-                    constraints.maxHeight / board.length);
+                double blockSize = min(
+                  constraints.maxWidth / board[0].length,
+                  constraints.maxHeight / board.length,
+                );
                 return Column(
                   children: [
                     Expanded(
@@ -78,9 +75,14 @@ class _TetrisGameState extends State<TetrisGame> {
                       ),
                     ),
                     // Отображение текущего счета
-                    Text('Очки: ${game.score}', style: TextStyle(fontSize: 24)),
-                    Text('Играет: ${Utils.getUsername(context)}',
-                        style: TextStyle(fontSize: 24)),
+                    Text(
+                      'Очки: ${game.score}',
+                      style: TextStyle(fontSize: 24),
+                    ),
+                    Text(
+                      'Играет: ${Utils.getUsername(context)}',
+                      style: TextStyle(fontSize: 24),
+                    ),
                   ],
                 );
               },

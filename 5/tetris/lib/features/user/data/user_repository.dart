@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:tetris/app/http/i_http_client.dart';
-import 'package:tetris/features/user/data/user_dto.dart';
-import 'package:tetris/features/user/domain/i_user_repository.dart';
-import 'package:tetris/features/user/domain/user_entity.dart';
+import 'user_dto.dart';
+import '../domain/i_user_repository.dart';
+import '../domain/user_entity.dart';
 
 /// Репозиторий для работы с пользователем
 final class UserRepository implements IUserRepository {

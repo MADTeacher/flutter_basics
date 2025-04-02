@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tetris/app/context_ext.dart';
-import 'package:tetris/features/user/domain/state/user_state.dart';
-import 'package:tetris/features/user/presentation/components/user_created.dart';
-import 'package:tetris/features/user/presentation/components/user_error.dart';
-import 'package:tetris/features/user/presentation/components/username_field.dart';
+
+import '../domain/state/user_state.dart';
+import 'components/user_created.dart';
+import 'components/user_error.dart';
+import 'components/username_field.dart';
 
 /// Экран создания пользователя
 class UserScreen extends StatefulWidget {
@@ -31,24 +32,28 @@ class _UserScreenState extends State<UserScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Center(
-          // Используем ValueListenableBuilder для отслеживания состояния кубита
-          // и обновления UI при изменении состояния
+          // Используем ValueListenableBuilder для отслеживания 
+          // состояния кубита и обновления UI при изменении состояния
           child: ValueListenableBuilder(
             valueListenable: context.di.userCubit.stateNotifier,
             builder: (context, state, child) {
               return switch (state) {
                 // Если состояние кубита - инициализация,
                 // то отображаем поле ввода имени пользователя
-                UserBlocInit() => UsernameField(controller: _controller),
+                UserInitState() => UsernameField(
+                    controller: _controller,
+                  ),
                 // Если состояние кубита - загрузка,
                 // то отображаем индикатор загрузки
-                UserBlocLoading() => CircularProgressIndicator(),
-                // Если состояние кубита - успешное создание пользователя,
+                UserLoadingState() => CircularProgressIndicator(),
+                // Если пользователь успешно создан,,
                 // то отображаем данные пользователя
-                UserBlocSuccess() => UserCreated(userEntity: state.userEntity),
+                UserSuccessState() => UserCreated(
+                    userEntity: state.userEntity,
+                  ),
                 // Если состояние кубита - ошибка,
                 // то отображаем сообщение об ошибке
-                UserBlocError() => UserError(
+                UserErrorState() => UserError(
                     message: state.message,
                     username: _controller.text,
                   ),

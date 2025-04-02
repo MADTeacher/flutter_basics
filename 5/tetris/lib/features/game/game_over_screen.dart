@@ -17,8 +17,8 @@ class GameOverScreen extends StatelessWidget {
         body: ValueListenableBuilder(
       builder: (context, state, child) {
         return switch (state) {
-          UserBlocLoading() => CircularProgressIndicator(),
-          UserBlocSuccess() => GameScores(
+          UserLoadingState() => CircularProgressIndicator(),
+          UserSuccessState() => GameScores(
               score: state.userEntity.score,
               onRestart: () {
                 Navigator.pushReplacementNamed(context, GameRouter.gameRoute);
