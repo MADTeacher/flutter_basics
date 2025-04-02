@@ -1,12 +1,16 @@
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io';
+
+import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
+
 import 'i_http_client.dart';
 
 /// Базовая реализация интерфейса IHttpClient для отправки HTTP запросов
 class BaseHttpClient implements IHttpClient {
   /// Определяет хост в зависимости от платформы
+  /// Так как на Android эмулятор работает
+  /// на localhost
   String get host {
     if (kIsWeb) {
       return 'localhost';
@@ -25,31 +29,23 @@ class BaseHttpClient implements IHttpClient {
   @override
   Future<http.Response> get(String path) async {
     final uri = Uri.parse('$baseUrl$path');
-    final response = await http.get(uri, headers: {
-      'Accept': 'application/json',
-    });
+    final response = await http.get(uri);
     return response;
   }
 
   @override
   Future<http.Response> post(String path, {Object? body}) async {
     final uri = Uri.parse('$baseUrl$path');
-    final response = await http.post(uri,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: body != null ? jsonEncode(body) : null);
+    final response = await http.post(uri, body: jsonEncode(body));
+
     return response;
   }
 
   @override
   Future<http.Response> put(String path, {Object? body}) async {
     final uri = Uri.parse('$baseUrl$path');
-    final response = await http.put(uri,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: body != null ? jsonEncode(body) : null);
+    final response = await http.put(uri, body: jsonEncode(body));
+
     return response;
   }
 }

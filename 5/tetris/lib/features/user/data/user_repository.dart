@@ -15,7 +15,7 @@ final class UserRepository implements IUserRepository {
   Future<UserEntity> createUser(String username) async {
     // Получение данных
     final response =
-        await httpClient.post('/users/', body: {'username': username});
+        await httpClient.post('/users/', body: {"username": username});
 
     // Проверка статуса ответа
     if (response.statusCode != 200) {
