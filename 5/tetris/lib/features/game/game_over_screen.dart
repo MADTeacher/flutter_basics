@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:tetris/app/context_ext.dart';
 import 'package:tetris/features/game/game_scores.dart';
-import 'package:tetris/features/user/domain/state/user_state.dart';
 import 'package:tetris/main.dart';
 
-/// Экран окончания игры
+import '../user/domain/state/user_state.dart';
+
+///  Экран окончания игры
 class GameOverScreen extends StatelessWidget {
   const GameOverScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // Получаем заработанные очки, переданные в маршрут
-    final args = ModalRoute.of(context)?.settings.arguments;
-    final scores = int.tryParse(args.toString()) ?? 0;
-
     return Scaffold(
 
         /// Слушатель состояния кубита пользователя
@@ -24,10 +21,12 @@ class GameOverScreen extends StatelessWidget {
         return switch (state) {
           UserLoadingState() => CircularProgressIndicator(),
           UserSuccessState() => GameScores(
-              score: scores,
+              score: state.userEntity.score,
               onRestart: () {
-                context.di.userCubit.setScores(state.userEntity.username, scores);
-                Navigator.pushReplacementNamed(context, GameRouter.gameRoute);
+                Navigator.pushReplacementNamed(
+                  context,
+                  GameRouter.gameRoute,
+                );
               }),
           _ => SizedBox.shrink(),
         };

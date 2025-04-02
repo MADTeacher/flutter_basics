@@ -17,19 +17,15 @@ final class LeaderboardRepository implements ILeaderboardRepository {
   Future<Iterable<LeaderboardEntity>> fetchLeaderboard() async {
     // Получение данных
     final response = await httpClient.get('/users/');
-
     // Проверка статуса ответа
     if (response.statusCode != 200) {
       throw Exception('Ошибка при загрузке: ${response.statusCode}');
     }
-
     final Iterable data = json.decode(response.body);
-
     // Преобразование данных в список сущностей
     final resList = data.map((item) {
       return LeaderboardDto.fromJson(item).toEntity();
     }).toList();
-
     // Возвращаем список сущностей
     return resList;
   }

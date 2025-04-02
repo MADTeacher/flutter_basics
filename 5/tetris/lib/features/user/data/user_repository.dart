@@ -16,19 +16,13 @@ final class UserRepository implements IUserRepository {
     // Получение данных
     final response =
         await httpClient.post('/users/', body: {"username": username});
-
     // Проверка статуса ответа
     if (response.statusCode != 200) {
       throw Exception(
           'Ошибка при создании пользователя: ${response.statusCode}');
     }
-
-    final data = json.decode(response.body);
-
     // Преобразование данных в список сущностей
-    final userEntity = UserDto.fromJson(data).toEntity();
-
-    return userEntity;
+    return UserDto.fromJson(json.decode(response.body)).toEntity();
   }
 
   @override
@@ -40,17 +34,12 @@ final class UserRepository implements IUserRepository {
         'score': scores,
       },
     );
-
     // Проверка статуса ответа
     if (response.statusCode != 200) {
       throw Exception(
           'Ошибка при обновлении пользователя: ${response.statusCode}');
     }
-
-    final data = json.decode(response.body);
-
     // Преобразование данных в список сущностей
-    final userEntity = UserDto.fromJson(data).toEntity();
-    return userEntity;
+    return UserDto.fromJson(json.decode(response.body)).toEntity();
   }
 }
