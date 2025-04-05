@@ -1,4 +1,4 @@
-import 'package:tetris/features/user/domain/user_entity.dart';
+import 'user_entity.dart';
 
 /// Интерфейс репозитория пользователя
 abstract interface class IUserRepository {

@@ -2,11 +2,12 @@ import 'package:tetris/app/http/base_http_client.dart';
 import 'package:tetris/app/http/i_http_client.dart';
 import 'package:tetris/app/storage/i_storage_service.dart';
 import 'package:tetris/app/storage/storage_service.dart';
-import 'package:tetris/features/leaderboard/data/leaderboard_repository.dart';
-import 'package:tetris/features/leaderboard/domain/i_leaderboard_repository.dart';
-import 'package:tetris/features/user/data/user_repository.dart';
-import 'package:tetris/features/user/domain/i_user_repository.dart';
-import 'package:tetris/features/user/domain/state/user_cubit.dart';
+
+import '../../features/user/data/user_repository.dart';
+import '../../features/user/domain/i_user_repository.dart';
+import '../../features/user/domain/state/user_cubit.dart';
+import '../../features/leaderboard/data/leaderboard_repository.dart';
+import '../../features/leaderboard/domain/i_leaderboard_repository.dart';
 
 /// Класс синглтон для инициализации зависимостей
 /// и предоставления доступа к ним в приложении
@@ -34,7 +35,9 @@ class Depends {
     await storageService.init();
 
     // Инициализируем репозиторий таблицы лидеров
-    leaderRepository = LeaderboardRepository(httpClient: _httpClient);
+    leaderRepository = LeaderboardRepository(
+      httpClient: _httpClient,
+    );
 
     // Инициализируем репозиторий пользователя
     // Передаем в репозиторий сервис

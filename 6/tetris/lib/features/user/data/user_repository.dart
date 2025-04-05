@@ -19,16 +19,22 @@ final class UserRepository implements IUserRepository {
   @override
   Future<UserEntity> createUser(String username) async {
     // Получение данных
-    final response =
-        await httpClient.post('/users/', body: {"username": username});
+    final response = await httpClient.post(
+      '/users/',
+      body: {"username": username},
+    );
     // Проверка статуса ответа
     if (response.statusCode != 200) {
       throw Exception(
-          'Ошибка при создании пользователя: ${response.statusCode}');
+        'Ошибка при создании пользователя: ${response.statusCode}',
+      );
     }
     final userDto = UserDto.fromJson(json.decode(response.body));
     // Сохранение пользователя в локальном хранилище
-    await storageService.setString('user', jsonEncode(userDto.toJson()));
+    await storageService.setString(
+      'user',
+      jsonEncode(userDto.toJson()),
+    );
     // Преобразование данных в список сущностей
     return userDto.toEntity();
   }
@@ -45,11 +51,15 @@ final class UserRepository implements IUserRepository {
     // Проверка статуса ответа
     if (response.statusCode != 200) {
       throw Exception(
-          'Ошибка при обновлении пользователя: ${response.statusCode}');
+        'Ошибка при обновлении пользователя: ${response.statusCode}',
+      );
     }
     final userDto = UserDto.fromJson(json.decode(response.body));
     // Сохранение пользователя в локальном хранилище
-    await storageService.setString('user', jsonEncode(userDto.toJson()));
+    await storageService.setString(
+      'user',
+      jsonEncode(userDto.toJson()),
+    );
     // Преобразование данных в список сущностей
     return userDto.toEntity();
   }

@@ -9,7 +9,9 @@ class UserCubit {
 
   UserCubit({required this.repository});
 
-  final ValueNotifier<UserState> stateNotifier = ValueNotifier(UserInitState());
+  final ValueNotifier<UserState> stateNotifier = ValueNotifier(
+    UserInitState(),
+  );
 
   Future<void> createUser(String username) async {
     // Проверка состояния, если состояние загрузки, то не выполнять запрос
