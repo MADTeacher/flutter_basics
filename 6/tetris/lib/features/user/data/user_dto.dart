@@ -27,6 +27,15 @@ final class UserDto {
     );
   }
 
+  /// Преобразование DTO в JSON
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'username': username,
+      'score': score,
+    };
+  }
+
   /// Преобразование DTO в сущность [UserEntity]
   UserEntity toEntity() {
     return UserEntity(

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:tetris/app/http/i_http_client.dart';
+import 'package:tetris/app/storage/i_storage_service.dart';
 import 'user_dto.dart';
 import '../domain/i_user_repository.dart';
 import '../domain/user_entity.dart';
@@ -8,8 +9,12 @@ import '../domain/user_entity.dart';
 /// Репозиторий для работы с пользователем
 final class UserRepository implements IUserRepository {
   final IHttpClient httpClient;
+  final IStorageService storageService;
 
-  UserRepository({required this.httpClient});
+  UserRepository({
+    required this.httpClient,
+    required this.storageService,
+  });
 
   @override
   Future<UserEntity> createUser(String username) async {
@@ -21,8 +26,11 @@ final class UserRepository implements IUserRepository {
       throw Exception(
           'Ошибка при создании пользователя: ${response.statusCode}');
     }
+    final userDto = UserDto.fromJson(json.decode(response.body));
+    // Сохранение пользователя в локальном хранилище
+    await storageService.setString('user', jsonEncode(userDto.toJson()));
     // Преобразование данных в список сущностей
-    return UserDto.fromJson(json.decode(response.body)).toEntity();
+    return userDto.toEntity();
   }
 
   @override
@@ -39,7 +47,31 @@ final class UserRepository implements IUserRepository {
       throw Exception(
           'Ошибка при обновлении пользователя: ${response.statusCode}');
     }
+    final userDto = UserDto.fromJson(json.decode(response.body));
+    // Сохранение пользователя в локальном хранилище
+    await storageService.setString('user', jsonEncode(userDto.toJson()));
     // Преобразование данных в список сущностей
-    return UserDto.fromJson(json.decode(response.body)).toEntity();
+    return userDto.toEntity();
+  }
+
+  @override
+  Future<void> deleteUserFromStorage() async {
+    // Очистка локального хранилища
+    await storageService.clear();
+  }
+
+  @override
+  Future<UserEntity?> getUserFromStorage() async {
+    // Получение данных из локального хранилища
+    final userString = storageService.getString('user');
+    if (userString == null) {
+      return null;
+    }
+    // Преобразование данных в JSON
+    final userJson = json.decode(userString);
+    // Преобразование JSON в DTO
+    final userDto = UserDto.fromJson(userJson);
+    // Преобразование DTO в сущность
+    return userDto.toEntity();
   }
 }

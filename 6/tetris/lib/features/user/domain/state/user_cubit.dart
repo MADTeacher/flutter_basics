@@ -9,8 +9,7 @@ class UserCubit {
 
   UserCubit({required this.repository});
 
-  final ValueNotifier<UserState> stateNotifier =
-      ValueNotifier(UserInitState());
+  final ValueNotifier<UserState> stateNotifier = ValueNotifier(UserInitState());
 
   Future<void> createUser(String username) async {
     // Проверка состояния, если состояние загрузки, то не выполнять запрос
@@ -56,6 +55,8 @@ class UserCubit {
   /// Выход из аккаунта
   /// Удаление текущего состояния
   void signOut() {
+    // Очищаем состояние пользователя
+    repository.deleteUserFromStorage();
     emit(UserInitState());
   }
 
@@ -63,11 +64,30 @@ class UserCubit {
   /// Пригодится для сброса состояния
   /// при повторном входе в аккаунт
   void reset() {
+    // Очищаем состояние пользователя
+    repository.deleteUserFromStorage();
     emit(UserInitState());
   }
 
   /// Установка текущего состояния
   void emit(UserState cubitState) {
     stateNotifier.value = cubitState;
+  }
+
+  /// Получение пользователя из локального хранилища
+  /// Если пользователь найден, то устанавливаем состояние
+  /// успешной загрузки и передаем сущность пользователя
+  Future<void> restoreUser() async {
+    try {
+      // Получение пользователя из локального хранилища
+      final entity = await repository.getUserFromStorage();
+      if (entity != null) {
+        // Установка состояния успешной загрузки
+        // и передача сущности пользователя
+        emit(UserSuccessState(entity));
+      }
+    } on Object catch (_) {
+      emit(UserInitState());
+    }
   }
 }
