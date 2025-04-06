@@ -11,22 +11,25 @@ class GameOverScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
         /// Слушатель состояния кубита пользователя
         /// и отображение соответствующего виджета
         /// в зависимости от состояния
-        body: ValueListenableBuilder(
-      builder: (context, state, child) {
-        return switch (state) {
-          UserLoadingState() => CircularProgressIndicator(),
-          UserSuccessState() => GameScores(
-              score: state.userEntity.score,
-              onRestart: () {
-                Navigator.pushReplacementNamed(context, GameRouter.gameRoute);
-              }),
-          _ => SizedBox.shrink(),
-        };
-      },
-      valueListenable: context.di.userCubit.stateNotifier,
+        body: Center(
+      child: ValueListenableBuilder(
+        builder: (context, state, child) {
+          return switch (state) {
+            UserLoadingState() => CircularProgressIndicator(),
+            UserSuccessState() => GameScores(
+                score: state.userEntity.score,
+                onRestart: () {
+                  Navigator.pushReplacementNamed(context, GameRouter.gameRoute);
+                }),
+            _ => SizedBox.shrink(),
+          };
+        },
+        valueListenable: context.di.userCubit.stateNotifier,
+      ),
     ));
   }
 }

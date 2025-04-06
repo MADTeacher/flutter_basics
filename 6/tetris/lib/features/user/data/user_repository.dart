@@ -18,18 +18,33 @@ final class UserRepository implements IUserRepository {
 
   @override
   Future<UserEntity> createUser(String username) async {
+    /// JSON-данные c отложенной инициализацией
+    /// Получаем данные от сервера или создаем пользователя с id = 0 и score = 0
+    late final Map<String, dynamic> resultJson;
+
     // Получение данных
-    final response = await httpClient.post(
-      '/users/',
-      body: {"username": username},
-    );
-    // Проверка статуса ответа
-    if (response.statusCode != 200) {
-      throw Exception(
-        'Ошибка при создании пользователя: ${response.statusCode}',
+    try {
+      final response = await httpClient.post(
+        '/users/',
+        body: {"username": username},
       );
+      // Проверка статуса ответа
+      if (response.statusCode != 200) {
+        throw Exception(
+          'Ошибка при создании пользователя: ${response.statusCode}',
+        );
+      }
+      resultJson = json.decode(response.body);
+    } on Object catch (_) {
+      // Если произошла ошибка, то создаем пользователя с id = 0 и score = 0
+      // и сохраняем его в локальном хранилище
+      resultJson = {
+        'id': 0,
+        'username': username,
+        'score': 0,
+      };
     }
-    final userDto = UserDto.fromJson(json.decode(response.body));
+    final userDto = UserDto.fromJson(resultJson);
     // Сохранение пользователя в локальном хранилище
     await storageService.setString(
       'user',
@@ -41,20 +56,34 @@ final class UserRepository implements IUserRepository {
 
   @override
   Future<UserEntity> setScores(String username, int scores) async {
-    final response = await httpClient.put(
-      '/users/scores/',
-      body: {
+    /// JSON-данные c отложенной инициализацией
+    /// Получаем данные от сервера или создаем пользователя с id = 0 и score = 0
+    late final Map<String, dynamic> resultJson;
+
+    try {
+      final response = await httpClient.put(
+        '/users/scores/',
+        body: {
+          'username': username,
+          'score': scores,
+        },
+      );
+      // Проверка статуса ответа
+      if (response.statusCode != 200) {
+        throw Exception(
+          'Ошибка при обновлении пользователя: ${response.statusCode}',
+        );
+      }
+    } on Object catch (_) {
+      // Если произошла ошибка, то
+      // сохраняем его в локальном хранилище
+      resultJson = {
+        'id': 0,
         'username': username,
         'score': scores,
-      },
-    );
-    // Проверка статуса ответа
-    if (response.statusCode != 200) {
-      throw Exception(
-        'Ошибка при обновлении пользователя: ${response.statusCode}',
-      );
+      };
     }
-    final userDto = UserDto.fromJson(json.decode(response.body));
+    final userDto = UserDto.fromJson(resultJson);
     // Сохранение пользователя в локальном хранилище
     await storageService.setString(
       'user',
