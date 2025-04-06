@@ -1,0 +1,27 @@
+{
+  "@@locale": "en",
+  "startGame": "Start Game",
+  "@startGame": {
+    "description": "Label for the start game button"
+  },
+  "bestResults": "Best Results",
+  "@bestResults": {
+    "description": "Label for the best results button"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Label for the settings button"
+  },
+  "language": "Language",
+  "@language": {
+    "description": "Label for language selection"
+  },
+  "english": "English",
+  "@english": {
+    "description": "Name of English language"
+  },
+  "russian": "Russian",
+  "@russian": {
+    "description": "Name of Russian language"
+  }
+}
