@@ -29,14 +29,16 @@ class BaseHttpClient implements IHttpClient {
   @override
   Future<http.Response> get(String path) async {
     final uri = Uri.parse('$baseUrl$path');
-    final response = await http.get(uri);
+    final response = await http.get(uri).timeout(Duration(seconds: 3));
     return response;
   }
 
   @override
   Future<http.Response> post(String path, {Object? body}) async {
     final uri = Uri.parse('$baseUrl$path');
-    final response = await http.post(uri, body: jsonEncode(body));
+    final response = await http
+        .post(uri, body: jsonEncode(body))
+        .timeout(Duration(seconds: 3));
 
     return response;
   }
@@ -44,7 +46,9 @@ class BaseHttpClient implements IHttpClient {
   @override
   Future<http.Response> put(String path, {Object? body}) async {
     final uri = Uri.parse('$baseUrl$path');
-    final response = await http.put(uri, body: jsonEncode(body));
+    final response = await http
+        .put(uri, body: jsonEncode(body))
+        .timeout(Duration(seconds: 3));
 
     return response;
   }
