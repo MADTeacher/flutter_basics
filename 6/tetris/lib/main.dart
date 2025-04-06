@@ -11,6 +11,9 @@ import 'features/main_menu/main_menu_screen.dart';
 part 'app/game_router.dart';
 
 void main() async {
+  // Инициализируем Flutter binding
+  WidgetsFlutterBinding.ensureInitialized();
+
   // Создаем экземпляр класса Depends
   final Depends depends = Depends();
   try {
