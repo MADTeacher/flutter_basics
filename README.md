@@ -1,6 +1,6 @@
 # Репозиторий книги "Основы Flutter"
 - В главной ветке приведен исходный код печатной версии книги
-- В ветке [full_book](https://github.com/MADTeacher/flutter_basics/tree/full_book) находится исходный код для полной версии книги и курса ["Основы Flutter"](https://stepik.org/a/197817) на Stepik
+- В ветке [full_book](https://github.com/MADTeacher/flutter_basics/tree/full_book) находится исходный код для полной версии книги и курса ["Основы Flutter: путь от Новичка до Профи"](https://stepik.org/a/197817) на Stepik
 
 [Тг-канал "Основы Flutter"](https://t.me/+Gi4egxk69LtkOThi), где публикуются новости по изменениям в книге, курсе на Stepik и различных активностях авторского коллектива (стримы, учатие в конференциях и т.д.)
 
